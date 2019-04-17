@@ -5,7 +5,10 @@ import styles from '../../styles'
 
 
 export default class AddHostessScreen extends React.Component {
-
+  
+  constructor(){
+    super();
+  }
 render() {
     return (
       <View style={styles.flex1} >

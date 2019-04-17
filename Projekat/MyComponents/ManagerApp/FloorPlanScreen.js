@@ -4,16 +4,14 @@ import {Header,Left,Icon} from 'native-base';
 import styles from '../../styles'
 
 export default class FloorPlanScreen extends React.Component {
-
+  
+  constructor(){
+    super();
+  }
    render() {
     return (
-      
-
-
-<View style={styles.form}>
-       <Text>forma za floor plan</Text>
-</View>
-   
+    <View><Text>hii</Text></View>
+    
     );
   }
 }

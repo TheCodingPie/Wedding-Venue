@@ -4,7 +4,10 @@ import {createSwitchNavigator,createAppContainer} from 'react-navigation';
 
 
 export default class FourthPageScreenNewlywedsApp extends React.Component {
+  static navigationOptions={
 
+    header:null
+  }
     
     render() {
   return (

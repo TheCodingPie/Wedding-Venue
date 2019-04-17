@@ -5,7 +5,10 @@ import {createSwitchNavigator,createAppContainer} from 'react-navigation';
 
 export default class ThirdPageScreenWaiterApp extends React.Component {
 
-    
+  static navigationOptions={
+
+    header:null
+  }
     render() {
   return (
         <View style={styles.form}>

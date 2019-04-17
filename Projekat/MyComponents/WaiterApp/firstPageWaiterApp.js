@@ -4,7 +4,10 @@ import {createSwitchNavigator,createAppContainer} from 'react-navigation';
 
 
 export default class FirstPageScreenWaiterApp extends React.Component {
-  
+  static navigationOptions={
+
+    header:null
+  }
     constructor(){
        super()
        this.state={

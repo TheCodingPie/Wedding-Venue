@@ -4,8 +4,10 @@ import {Header,Left,Icon} from 'native-base';
 import styles from '../../styles'
 
 export default class CreateWeddingScreen extends React.Component {
-
- 
+  
+  constructor(){
+    super();
+  }
 render() {
     return (
       

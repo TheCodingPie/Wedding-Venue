@@ -8,6 +8,24 @@ const styles = StyleSheet.create({
       
       backgroundColor: '#ecb3ff',
     },
+    floorPlanView: {
+      flex: 1,
+      alignItems: 'center',
+      justifyContent: 'flex-end',
+      flexDirection:'column',
+      
+      backgroundColor: '#ecb3ff',
+    },
+
+    floorPlan: {
+      flex: 1,
+      alignItems: 'flex-end',
+      justifyContent: 'center',
+      flexDirection:'row',
+      
+      backgroundColor: 'red',
+    },
+   
 
    textinput:{
     flex:0.6,
@@ -31,6 +49,13 @@ const styles = StyleSheet.create({
       flexDirection:'row',
       backgroundColor: '#ecb3ff',
     },
+    CircleShapeView: {
+    width: 60,
+    height: 60,
+    borderRadius: 150/2,
+    backgroundColor: '#00BCD4',
+    margin:6
+},
    
 });
 

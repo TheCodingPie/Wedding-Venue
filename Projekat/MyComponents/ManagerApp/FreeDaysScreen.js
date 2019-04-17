@@ -2,7 +2,10 @@ import React from 'react';
 import { StyleSheet, Text, View,TextInput,Button } from 'react-native';
 import {Header,Left,Icon} from 'native-base';
 export default class FreeDaysScreen extends React.Component {
-
+  
+  constructor(){
+    super();
+  }
     
    render() {
     return (

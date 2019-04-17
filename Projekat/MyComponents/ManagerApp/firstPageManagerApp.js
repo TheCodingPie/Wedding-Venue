@@ -4,7 +4,10 @@ import {createSwitchNavigator,createAppContainer} from 'react-navigation';
 import styles from '../../styles'
 
 export default class FirstPageScreenManagerApp extends React.Component {
-  
+  static navigationOptions={
+
+    header:null
+  }
     constructor(){
        super()
        this.state={

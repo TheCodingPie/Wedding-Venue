@@ -4,10 +4,8 @@ import {Header,Left,Icon} from 'native-base';
 import styles from '../../styles'
 
 export default class MenuScreen extends React.Component {
-
+  
  
-
-
   render() {
     return (
       

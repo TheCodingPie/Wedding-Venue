@@ -39,23 +39,52 @@ const ManagerDrawerNavigator=createDrawerNavigator({
       
   //Kreiraj_Vencanje:ManagerTabNavigator,
    
-  Slobodni_dani:FreeDaysScreen, 
+  Slobodni_dani:FreeDaysScreen,
+    
   Dodaj_Konobara: AddWaiterScreen,
    Dodaj_Hostesu:AddHostessScreen,
+ 
+
 })
 
 
 const ManagerTabNavigator=createBottomTabNavigator({
 
-  Slobondi_dani:ManagerDrawerNavigator,
-  Kreiraj_Vencanje:CreateWeddingScreen,
-  Meni:MenuScreen,
-  Raspored_Stolova:FloorPlanScreen,
-  
+  Slobondi_dani:{
+    screen:ManagerDrawerNavigator,
+    navigationOptions:{
+      tabBarLabel:'Slobodni dani',
+      
+      }
+  },
+  Kreiraj_Vencanje:{
+    screen:CreateWeddingScreen,
+    navigationOptions:{
+      tabBarLabel:'Kreiraj vencanje',
+     
+      }
+  },
+  Meni:{
+    screen:MenuScreen,
+    
+  },
+  Raspored_Stolova:{
+    screen:FloorPlanScreen,
+    navigationOptions:{
+      tabBarLabel:'Raspored stolova',
+      
+      }
+  },
   
   
 
-})
+  
+
+});
+ManagerTabNavigator.navigationOptions = {
+  //da se skloni heder za sve tabnavigatore
+  header: null,
+};
 
 AppStackNavigator=createStackNavigator({
   AppFirstPage:AppFirstPageScreen,
@@ -81,7 +110,9 @@ AppStackNavigator=createStackNavigator({
   //ManagerAppSecondPage:SecondPageScreenManagerApp,
   
   //ManagerDrawerNavigator:ManagerDrawerNavigator,
-  ManagerTabNavigator:ManagerTabNavigator
+  ManagerTabNavigator:ManagerTabNavigator,
+ 
+ 
 
 });
 

@@ -4,7 +4,10 @@ import {Header,Left,Icon} from 'native-base';
 import styles from '../../styles'
 
 export default class AddWaiterScreen extends React.Component {
-
+  
+  constructor(){
+    super();
+  }
    render() {
     return (
       <View style={styles.flex1} >

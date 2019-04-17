@@ -3,7 +3,10 @@ import { StyleSheet, Text, View,TextInput,Button } from 'react-native';
 import {createSwitchNavigator,createAppContainer} from 'react-navigation';
 
 export default class FirstPageScreenHostessApp extends React.Component {
-  
+  static navigationOptions={
+
+    header:null
+  }
     constructor(){
        super()
        this.state={
