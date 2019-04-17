@@ -39,10 +39,25 @@ const ManagerDrawerNavigator=createDrawerNavigator({
       
   //Kreiraj_Vencanje:ManagerTabNavigator,
    
-  Slobodni_dani:FreeDaysScreen,
+  Slobodni_dani:{
+   screen:FreeDaysScreen,
+   navigationOptions : {
+      drawerLabel: 'Slobodni dani'
+  }
+  },
     
-  Dodaj_Konobara: AddWaiterScreen,
-   Dodaj_Hostesu:AddHostessScreen,
+  Dodaj_Konobara:{
+    screen: AddWaiterScreen,
+    navigationOptions : {
+      drawerLabel: 'Dodaj konobara'
+  }
+  },
+   Dodaj_Hostesu:{
+    screen:AddHostessScreen,
+    navigationOptions : {
+      drawerLabel: 'Dodaj hostesu'
+  }
+  },
  
 
 })
