@@ -12,8 +12,20 @@ export default class MenuScreen extends React.Component {
         
   
   
-<View style={styles.form}>
-          <Text>forma za meni</Text>
+<View style={styles.form} >
+
+     <Button style={styles.flex1} title='Unesi predjelo' color="#260033" onPress={this.btnUnesiPress}>  </Button>
+
+
+ <Button  style={styles.flex1}  title='Unesi jelo' color="#260033" onPress={this.btnUnesiPress}>  </Button>
+  
+ 
+  <Button  style={styles.flex1}  title='Unesi desert' color="#260033" onPress={this.btnUnesiPress}>  </Button>
+
+
+
+
+
 </View>
   
       

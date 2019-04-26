@@ -5,7 +5,7 @@ const styles = StyleSheet.create({
       flex: 1,
       alignItems: 'center',
       justifyContent: 'center',
-      
+      flexDirection:'column',
       backgroundColor: '#ecb3ff',
     },
     floorPlanView: {
@@ -25,7 +25,10 @@ const styles = StyleSheet.create({
       
       backgroundColor: 'red',
     },
-   
+   flex1:{
+      flex:1,
+      
+   },
 
    textinput:{
     flex:0.6,

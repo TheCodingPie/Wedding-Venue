@@ -6,11 +6,30 @@ import styles from '../../styles'
 export default class AddWaiterScreen extends React.Component {
   
   constructor(){
-    super();
-  }
+    super()
+    this.state={
+      name:"",
+      lastname:"",
+      code:""
+
+      }
+
+ }
+
+ handleChangeTextName=(newText)=>this.setState({name:newText});
+ handleChangeTextLastname=(newText)=>this.setState({lastname:newText});
+ handleChangeTextCode=(newText)=>this.setState({code:newText});
+
+ btnUnesiPress=()=>{
+    alert("uneli ste konobara");
+    //logika da se unese u bazu
+
+}
+
    render() {
     return (
-      <View style={styles.flex1} >
+    
+    <View style={styles.flex1} >
       <Header>
     <Left>
     <Icon name='menu' onPress={()=>this.props.navigation.openDrawer()} />
@@ -19,10 +38,25 @@ export default class AddWaiterScreen extends React.Component {
 </Header>
 
 
-<View style={styles.form}>
-       <Text>forma za ubacivanje konobara</Text>
-</View>
-</View>   
+<View style={styles.form} >
+           <View style={styles.container}> 
+                <Text style={styles.text}>Unesite ime:</Text>
+                <TextInput style={styles.textinput} onChangeText={this.handleChangeTextName} /> 
+            </View>
+            <View style={styles.container}> 
+                <Text style={styles.text}>Unesite prezime:</Text>
+                <TextInput style={styles.textinput} onChangeText={this.handleChangeTextLastname} /> 
+             </View>
+             <View style={styles.container}> 
+                <Text style={styles.text}>Unesite sifru:</Text>
+                <TextInput style={styles.textinput} onChangeText={this.handleChangeTextCode} /> 
+             </View>
+
+
+           <Button title='Unesi' color="#260033" onPress={this.btnUnesiPress}>  </Button>
+           
+     </View>
+  </View>
     );
   }
 }

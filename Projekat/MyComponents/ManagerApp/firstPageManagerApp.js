@@ -12,19 +12,19 @@ export default class FirstPageScreenManagerApp extends React.Component {
        super()
        this.state={
          code:"",
-         surname:""
+         lastname:""
 
          }
 
     }
 
     handleChangeTexCode=(newText)=>this.setState({code:newText});
-    handleChangeTextSurname=(newText)=>this.setState({surname:newText});
+    handleChangeTextLastname=(newText)=>this.setState({lastname:newText});
     
     btnDaljePress=()=>
     {
        
-        //this.props.navigation.navigate('ManagerAppSecondPage')
+        //provera da li u bazi postoji this.state.code i this.state.lastname
         this.props.navigation.navigate('ManagerTabNavigator')
     };
      
@@ -38,7 +38,7 @@ render() {
             </View>
             <View style={styles.container}> 
                 <Text style={styles.text}>Unesite prezime:</Text>
-                <TextInput style={styles.textinput} onChangeText={this.handleChangeTextSurname} /> 
+                <TextInput style={styles.textinput} onChangeText={this.handleChangeTextLastname} /> 
              </View>
            <Button title='Unesi' color="#260033" onPress={this.btnDaljePress}>  </Button>
            
