@@ -5,14 +5,13 @@ const styles = StyleSheet.create({
       flex: 1,
       alignItems: 'center',
       justifyContent: 'center',
-      
+      flexDirection:'column',
       backgroundColor: '#ecb3ff',
     },
 
    textinput:{
-    flex:0.6,
     backgroundColor: '#edd7f4',
-   
+   flex:0.6,
     justifyContent: 'center',
     height:40,
     marginLeft:10,

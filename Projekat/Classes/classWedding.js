@@ -54,6 +54,28 @@ export class Wedding{
         this.familyArray.push(family);
 
     }
+    static returnWeddingDates(now)
+    {
+    const formData=new FormData();
+    formData.append("weddingDates",1);
+    formData.append("now",now);
+    const fetchData={
+      method:"post",
+      body:formData
+    };
+   
+    fetch('http://192.168.0.19/Scripts/man.php',fetchData)
+    .then((response)=>response.text())
+    .then((response)=>{
+      if(response)
+      return true;
+     else{
+      return false;
+         }
+    })
+    .catch((error)=>{alert(error)});
+      return 1;
+    }
 
 
     

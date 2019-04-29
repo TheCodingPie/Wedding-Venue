@@ -1,8 +1,14 @@
 import React from 'react';
 import { StyleSheet, Text, View,TextInput,Button } from 'react-native';
 import {Header,Left,Icon} from 'native-base';
+import { Wedding } from '../../Classes/classWedding';
 export default class FreeDaysScreen extends React.Component {
-
+constructor(){
+  super();
+  let date=new Date().toISOString().split('T')[0];
+  let weddingDates=Wedding.returnWeddingDates(date);
+ // alert(weddingDates);
+}
     
    render() {
     return (

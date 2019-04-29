@@ -1,28 +1,55 @@
 import React from 'react';
-import { StyleSheet, Text, View,TextInput,Button } from 'react-native';
+import { StyleSheet, Text, View,TextInput,Button,TouchableOpacity } from 'react-native';
 import {createSwitchNavigator,createAppContainer} from 'react-navigation';
 import styles from '../../styles'
+import Manager from '../../Classes/classManager';
+import FetchConstants from '../../Classes/fetchConstants';
 
 export default class FirstPageScreenManagerApp extends React.Component {
   
     constructor(){
        super()
        this.state={
-         code:"",
-         surname:""
+         id:"",
+         password:""
 
          }
 
     }
 
-    handleChangeTexCode=(newText)=>this.setState({code:newText});
-    handleChangeTextSurname=(newText)=>this.setState({surname:newText});
+    handleChangeTextid=(newText)=>this.setState({id:newText});
+    handleChangeTextPassword=(newText)=>this.setState({password:newText});
     
-    btnDaljePress=()=>
+    btnLogin=()=>
     {
-       
-        //this.props.navigation.navigate('ManagerAppSecondPage')
-        this.props.navigation.navigate('ManagerTabNavigator')
+      if(this.state.id=="" && this.state.password=="")
+      {
+      alert( "Trebate uneti id restorana i password" );
+      return;
+      }
+
+      const formData=new FormData();
+      formData.append("login",1);
+      formData.append("id",this.state.id);
+      formData.append("password",this.state.password);
+      const fetchData={
+        method:"post",
+        body:formData
+      };
+     
+      fetch(FetchConstants.url+'/Manager.php',fetchData)
+      .then((response)=>response.json())
+      .then((response)=>{
+       if(response==true)
+       this.props.navigation.navigate('ManagerTabNavigator',{restaurantId:this.state.id});
+       else
+       {
+        alert("Wrong password");
+        this.state.id="";
+        this.state.password="";
+       }
+      })
+      .catch((error)=>{alert(error);});
     };
      
 
@@ -30,15 +57,15 @@ render() {
     return (
        <View style={styles.form} >
            <View style={styles.container}> 
-                <Text style={styles.text}>Unesite sifru:</Text>
-                <TextInput style={styles.textinput} onChangeText={this.handleChangeTextcode} /> 
+                <TextInput style={styles.textinput} onChangeText={this.handleChangeTextid} placeholder='Enter id' placeholderTextColor='white' /> 
             </View>
             <View style={styles.container}> 
-                <Text style={styles.text}>Unesite prezime:</Text>
-                <TextInput style={styles.textinput} onChangeText={this.handleChangeTextSurname} /> 
+                <TextInput style={styles.textinput} onChangeText={this.handleChangeTextPassword} placeholder='Enter password' 
+                placeholderTextColor='white' secureTextEntry={true}/> 
              </View>
-           <Button title='Unesi' color="#260033" onPress={this.btnDaljePress}>  </Button>
-           
+             <View>
+           <TouchableOpacity onPress={this.btnLogin}><Text>LOGIN</Text></TouchableOpacity>
+             </View>
      </View>
     );
   }
