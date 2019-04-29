@@ -6,6 +6,7 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       justifyContent: 'center',
       flexDirection:'column',
+<<<<<<< HEAD
       backgroundColor: '#ecb3ff',
     },
     floorPlanView: {
@@ -14,6 +15,8 @@ const styles = StyleSheet.create({
       justifyContent: 'flex-end',
       flexDirection:'column',
       
+=======
+>>>>>>> master
       backgroundColor: '#ecb3ff',
     },
 
@@ -31,9 +34,8 @@ const styles = StyleSheet.create({
    },
 
    textinput:{
-    flex:0.6,
     backgroundColor: '#edd7f4',
-   
+   flex:0.6,
     justifyContent: 'center',
     height:40,
     marginLeft:10,
