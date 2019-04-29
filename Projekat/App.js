@@ -33,7 +33,21 @@ import floorPlanFirstPageScreen from './MyComponents/ManagerApp/floorPlanFirstPa
 import floorPlanWeddIdPageScreen from './MyComponents/ManagerApp/floorPlanWeddIdPage';
 import floorPlanSeeFPPageScreen from './MyComponents/ManagerApp/floorPlanSeeFPPage';
 import floorPlanFirstPageNewWeddScreen from './MyComponents/ManagerApp/floorPlanFirstPageNewWedd';
+import menuFirstPageScreen from './MyComponents/ManagerApp/menuFirstPage';
+import menuSecondPageScreen from './MyComponents/ManagerApp/menuSecondPage';
+import menuThirdPageScreen from './MyComponents/ManagerApp/menuThirdPage';
 
+
+const ManagerMenuStackNavigator=createStackNavigator({
+
+  menuFirstPage:menuFirstPageScreen,
+
+  menuSecondPage:menuSecondPageScreen,
+
+  menuThirdPage:menuThirdPageScreen
+
+  
+});
 
 
 const ManagerFloorPlanStackNavigator=createStackNavigator({
@@ -100,7 +114,7 @@ const ManagerTabNavigator=createBottomTabNavigator({
       }
   },
   Meni:{
-    screen:MenuScreen,
+    screen:ManagerMenuStackNavigator,
     
   },
   Raspored_Stolova:{

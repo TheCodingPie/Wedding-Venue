@@ -25,6 +25,10 @@ npr table je sto koji je vracen iz baze sa tableid-om
 i ide update DB(table)
 */
 }
+let stageAndWeddtable=[];
+    stageAndWeddtable.push( <Draggable key={1}   renderSize={85} renderColor='black' offsetX={-110} offsetY={0} renderShape='image' imageSource={require('../Images/stozamladence.png')} pressDrag={()=>alert('touched!!')}/>);
+    stageAndWeddtable.push( <Draggable key={2}   renderSize={70} renderColor='black' offsetX={195} offsetY={0} renderShape='image' imageSource={require('../Images/stozamladence.png')} pressDrag={()=>alert('touched!!')}/> );
+
 var table1=new Table('circle',10,1421,1,340,500,7);//ekran za telefon je za x=340 za y=530
 var table2=new Table('circle',11,1421,2,0,50,10);
 var table3=new Table('circle',12,1421,3,200,140,12);
@@ -70,7 +74,7 @@ export default class floorPlanSeeFPPageScreen extends React.Component {
     if(this.props.navigation.state.params.wedid!=-1)//znaci da trazi vec postojece vencanje
     {
         return(<View style={{backgroundColor: 'blue', flex: 1}} >
-         
+         {stageAndWeddtable}
          {tablestorender}
         
          </View>);
@@ -82,7 +86,7 @@ export default class floorPlanSeeFPPageScreen extends React.Component {
         return(
           
         <View style={{backgroundColor: 'blue', flex: 1}} >
-         
+          {stageAndWeddtable}
          {tablestorender}
         
          </View>
@@ -92,6 +96,7 @@ export default class floorPlanSeeFPPageScreen extends React.Component {
       {
         return(
           <View style={{backgroundColor: 'blue', flex: 1}} >
+         {stageAndWeddtable}
          {tablestorender}
          </View>
         );
@@ -100,6 +105,7 @@ export default class floorPlanSeeFPPageScreen extends React.Component {
       {
         return(
           <View style={{backgroundColor: 'blue', flex: 1}} >
+           {stageAndWeddtable}
          {tablestorender}
          </View>
         );

@@ -43,7 +43,7 @@ export default class FirstPageScreenManagerApp extends React.Component {
         body:formData
       };
      
-      fetch(FetchConstants.url+'/Manager.php',fetchData)
+      fetch("http://192.168.0.15:8080/Scripts/Manager.php",fetchData)
       .then((response)=>response.json())
       .then((response)=>{
        if(response==true)
