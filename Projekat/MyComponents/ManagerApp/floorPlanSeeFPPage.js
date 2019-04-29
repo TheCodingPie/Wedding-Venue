@@ -44,57 +44,39 @@ tablespom
   .push( <Draggable key={index} ref={(draggable) => {arr[index] = draggable;}} longPressDrag={()=>updateXanY(arr[index].state._value.x,arr[index].state._value.y,table.id)}  pressDrag={()=>prikaziGoste(table.id)/*alert(arr[index].state._value.x+" "+arr[index].state._value.y)*/} reverse={false} renderColor='black' renderShape={table.shape} x={table.x} y={table.y} renderText={table.peopleontable} />));
 
 
-export default class FloorPlanScreen extends React.Component {
+export default class floorPlanSeeFPPageScreen extends React.Component {
   
   constructor(){
     super();
     this.state={
-        weddingId:-1,
-        getWeddingFP:false,
-        form:false,
         firstPlan:false,//60
         secondPlan:false,//100
         thirdPlan:false,//150
         
     }
+    //this.props.navigation.state.params.wedid  OVAKO SE PRISTUPA WEDINNG-ju AKO JE WEDDID -1 ZNACI DA SE RADI O NOVOM VENCANJU
+        
+}
+   static navigationOptions={
+
+    header:null
   }
+
   handleChangeTextCode=(newText)=>this.setState({weddingId:newText});
 
-  askForWeddId=()=>{
-    return(
-    <View style={{flex:1,justifyContent:'center',alignItems:'center'}} >
-     <Text style={styles.text}>Unesite id svadbe:</Text>
-     <TextInput style={styles.textinput} onChangeText={this.handleChangeTextcode} /> 
-     <Button title='Unesi' color="#260033" onPress={()=>this.setState({  weddingId:0,getWeddingFP:true })}>  </Button>
-     <Button title='Nova svadba' color="#260033" onPress={()=>this.setState({  weddingId:0,form:true })}>  </Button>
-    </View>
-    );
-  }
-  getWedding=(weddId)=>tablestorender;
   
    render() {
+   
+    if(this.props.navigation.state.params.wedid!=-1)//znaci da trazi vec postojece vencanje
+    {
+        return(<View style={{backgroundColor: 'blue', flex: 1}} >
+         
+         {tablestorender}
+        
+         </View>);
 
-    if(this.state.weddingId==-1)
-      return (this.askForWeddId());
-
-    if(this.state.getWeddingFP==true)
-
-    return( <View style={{backgroundColor: 'blue', flex: 1}} > { this.getWedding(this.state.weddingId)} </View>);
-
-    if(this.state.form==true )
-
-      return(
-        <View style={styles.form} >
-           
-                <Text style={styles.text}>Unesite broj gostiju:</Text>
-                <Button title='60' color="#260033" onPress={()=>this.setState({  firstPlan:true,form:false })}>  </Button>
-                <Button title='100' color="#260033" onPress={()=>this.setState({   secondPlan:true,form:false })}>  </Button>
-           <Button title='150' color="#260033" onPress={()=>this.setState({   thirdPlan:true,form:false })}>  </Button>
-           
-     </View>
-      );
-     
-      if(this.state.firstPlan)
+    }
+      if(this.props.navigation.state.params.peoplenum==60)//vuce se raspored inicijalan za 60 ljudi
       {
         
         return(
@@ -106,7 +88,15 @@ export default class FloorPlanScreen extends React.Component {
          </View>
         );
       }
-      else
+      if(this.props.navigation.state.params.peoplenum==100)
+      {
+        return(
+          <View style={{backgroundColor: 'blue', flex: 1}} >
+         {tablestorender}
+         </View>
+        );
+      }
+      if(this.props.navigation.state.params.peoplenum==150)
       {
         return(
           <View style={{backgroundColor: 'blue', flex: 1}} >

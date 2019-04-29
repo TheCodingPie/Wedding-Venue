@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View,TextInput,Button } from 'react-native';
+
 import AppFirstPageScreen from './MyComponents/AppFirstPage';
 
 import FirstPageScreenUserApp from './MyComponents/UserApp/firstPageUserApp';
@@ -28,10 +28,30 @@ import AddWaiterScreen from './MyComponents/ManagerApp/AddWaiterScreen';
 import AddHostessScreen from './MyComponents/ManagerApp/AddHostessScreen';
 import FreeDaysScreen from './MyComponents/ManagerApp/FreeDaysScreen';
 import MenuScreen from './MyComponents/ManagerApp/MenuScreen';
-import FloorPlanScreen from './MyComponents/ManagerApp/FloorPlanScreen';
+//import FloorPlanScreen from './MyComponents/ManagerApp/FloorPlanScreen';
+import floorPlanFirstPageScreen from './MyComponents/ManagerApp/floorPlanFirstPage';
+import floorPlanWeddIdPageScreen from './MyComponents/ManagerApp/floorPlanWeddIdPage';
+import floorPlanSeeFPPageScreen from './MyComponents/ManagerApp/floorPlanSeeFPPage';
+import floorPlanFirstPageNewWeddScreen from './MyComponents/ManagerApp/floorPlanFirstPageNewWedd';
 
 
-import Manager from './Classes/classManager'
+
+const ManagerFloorPlanStackNavigator=createStackNavigator({
+
+  floorPlanFirstPage:floorPlanFirstPageScreen,//da li nova svadba ili pregled neke vec zakazane
+  
+  floorPlanWeddIdPage:floorPlanWeddIdPageScreen,
+
+  floorPlanSeeFPPage:floorPlanSeeFPPageScreen,
+
+  floorPlanFirstPageNewWedd:floorPlanFirstPageNewWeddScreen,//izbor broja gostiju
+});
+
+ManagerFloorPlanStackNavigator.navigationOptions = {
+  //da se skloni heder za sve tabnavigatore
+  header: null,
+};
+
 
 
 const ManagerDrawerNavigator=createDrawerNavigator({
@@ -84,18 +104,20 @@ const ManagerTabNavigator=createBottomTabNavigator({
     
   },
   Raspored_Stolova:{
-    screen:FloorPlanScreen,
+    //screen:FloorPlanScreen,
+    screen:ManagerFloorPlanStackNavigator,
     navigationOptions:{
       tabBarLabel:'Raspored stolova',
       
       }
   },
   
-  
-
+ 
   
 
 });
+
+
 ManagerTabNavigator.navigationOptions = {
   //da se skloni heder za sve tabnavigatore
   header: null,

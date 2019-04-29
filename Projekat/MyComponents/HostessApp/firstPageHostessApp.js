@@ -23,7 +23,7 @@ export default class FirstPageScreenHostessApp extends React.Component {
     
     btnUnesiPress=()=>
     {
-        this.props.navigation.navigate('HostessAppSecondPage')
+        this.props.navigation.navigate('HostessAppSecondPage',{wedid:this.state.code})
     };
      
 
