@@ -6,17 +6,14 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       justifyContent: 'center',
       flexDirection:'column',
-<<<<<<< HEAD
-      backgroundColor: '#ecb3ff',
+
     },
     floorPlanView: {
       flex: 1,
       alignItems: 'center',
       justifyContent: 'flex-end',
       flexDirection:'column',
-      
-=======
->>>>>>> master
+
       backgroundColor: '#ecb3ff',
     },
 

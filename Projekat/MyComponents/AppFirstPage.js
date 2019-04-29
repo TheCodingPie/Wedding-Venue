@@ -1,29 +1,17 @@
 import React from 'react';
-<<<<<<< .merge_file_a03136
-import { StyleSheet, Text, View,TextInput,Button,ImageBackground } from 'react-native';
 
-import {createSwitchNavigator,createAppContainer} from 'react-navigation';
-import styles from './stylesAppFirstPage';
-=======
 import { StyleSheet, Text, View,TouchableOpacity,Button,ImageBackground } from 'react-native';
 
 import {createSwitchNavigator,createAppContainer} from 'react-navigation';
 import styles from './stylesAppFirstPage';
 import { TouchableHighlight } from 'react-native-gesture-handler';
->>>>>>> .merge_file_a06296
+
 //import {styles} from '../styles';
 export default class AppFirstPageScreen extends React.Component {
   
   constructor()
   {
      super()
-<<<<<<< .merge_file_a03136
-     this.state={
-       code:"",
-       surname:""
-
-       }
-=======
      this.state={}
      this.state.firstPageBtnStyles={
        color:'black',
@@ -51,7 +39,7 @@ export default class AppFirstPageScreen extends React.Component {
          })
        }
      },1000);
->>>>>>> .merge_file_a06296
+
   }
   static navigationOptions={
 
@@ -90,14 +78,7 @@ export default class AppFirstPageScreen extends React.Component {
           return (
               <ImageBackground source ={require( './Images/Vencanje.jpg')} style={styles.containerImage} >
                  <View style={styles.containerImageLayer1}>
-<<<<<<< .merge_file_a03136
-                 <View style={styles.containerDugme}>
-                  <Button title='Gost' color="#260033" onPress={this.btnGostPress}>  </Button>
-                  <Button title='Mladenci' color="#260033" onPress={this.btnMladenciPress}>  </Button>                  
-                  <Button title='Konobar' color="#260033" onPress={this.btnKonobarPress}>  </Button>
-                  <Button title='Hostesa' color="#260033" onPress={this.btnHostesaPress}>  </Button>
-                  <Button title='Menadzer' color="#260033" onPress={this.btnMenadzerPress}>  </Button>
-=======
+
                  <View style={styles.containerImageLayer}>
                   <TouchableOpacity style={this.state.firstPageTO} onPress={this.btnGostPress}><Text style={this.state.firstPageBtnStyles}>Gost</Text></TouchableOpacity>
              
@@ -109,7 +90,7 @@ export default class AppFirstPageScreen extends React.Component {
               
                   <TouchableOpacity style={this.state.firstPageTO} onPress={this.btnMenadzerPress}><Text style={this.state.firstPageBtnStyles}>Menadzer</Text></TouchableOpacity>
                   
->>>>>>> .merge_file_a06296
+
                   </View>
                   </View>
                    

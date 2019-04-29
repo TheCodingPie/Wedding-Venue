@@ -13,33 +13,21 @@ export default class FirstPageScreenManagerApp extends React.Component {
     constructor(){
        super()
        this.state={
-<<<<<<< HEAD
-         code:"",
-         lastname:""
-=======
+
          id:"",
          password:""
->>>>>>> master
+
 
          }
 
     }
-
-<<<<<<< HEAD
-    handleChangeTexCode=(newText)=>this.setState({code:newText});
-    handleChangeTextLastname=(newText)=>this.setState({lastname:newText});
-=======
     handleChangeTextid=(newText)=>this.setState({id:newText});
     handleChangeTextPassword=(newText)=>this.setState({password:newText});
->>>>>>> master
+
     
     btnLogin=()=>
     {
-<<<<<<< HEAD
-       
-        //provera da li u bazi postoji this.state.code i this.state.lastname
-        this.props.navigation.navigate('ManagerTabNavigator')
-=======
+
       if(this.state.id=="" && this.state.password=="")
       {
       alert( "Trebate uneti id restorana i password" );
@@ -68,7 +56,7 @@ export default class FirstPageScreenManagerApp extends React.Component {
        }
       })
       .catch((error)=>{alert(error);});
->>>>>>> master
+
     };
      
 
@@ -79,16 +67,13 @@ render() {
                 <TextInput style={styles.textinput} onChangeText={this.handleChangeTextid} placeholder='Enter id' placeholderTextColor='white' /> 
             </View>
             <View style={styles.container}> 
-<<<<<<< HEAD
-                <Text style={styles.text}>Unesite prezime:</Text>
-                <TextInput style={styles.textinput} onChangeText={this.handleChangeTextLastname} /> 
-=======
+
                 <TextInput style={styles.textinput} onChangeText={this.handleChangeTextPassword} placeholder='Enter password' 
                 placeholderTextColor='white' secureTextEntry={true}/> 
              </View>
              <View>
            <TouchableOpacity onPress={this.btnLogin}><Text>LOGIN</Text></TouchableOpacity>
->>>>>>> master
+
              </View>
      </View>
     );

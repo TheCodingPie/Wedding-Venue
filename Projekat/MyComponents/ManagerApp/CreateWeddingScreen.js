@@ -14,10 +14,8 @@ export default class CreateWeddingScreen extends React.Component {
   
   constructor(){
     super();
-<<<<<<< HEAD
-  }
-=======
-    this.state={
+
+      this.state={
       id:"",
       cb:false,
       buffet:0,
@@ -128,7 +126,7 @@ createPassword(){
   
 }
 
->>>>>>> master
+
 render() {
     return (
      
