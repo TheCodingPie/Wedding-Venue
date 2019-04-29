@@ -12,8 +12,13 @@ export default class FreeDaysScreen extends React.Component {
   
   constructor(){
     super();  
+    this.state={
+      isLoading:false,
+      dateSource:[],
+      markedD:newDaysObject
+    }
        
-    markedDates.forEach((day) => {
+   returnMarkedDates=(markedDates)=>{ markedDates.forEach((day) => {
       newDaysObject = {
         ...newDaysObject,
         [day]: {
@@ -21,12 +26,31 @@ export default class FreeDaysScreen extends React.Component {
           marked: true
         }
       };
-    });  
-    this.state={
-      markedD: newDaysObject,
-    };   
-   
+    }); 
+    this.setState({markedD:newDaysObject});
+  }
   }  
+  componentDidMount()
+{
+  const formData=new FormData();
+      formData.append("getFreeDays",1);
+      const fetchData={
+        method:"post",
+        body:formData
+      };
+     
+      fetch("http://192.168.0.14/Scripts/Manager.php",fetchData)
+      .then((response)=>response.json())
+      .then((response)=>{
+        alert(response);
+       this.setState({
+         isLoading:false,
+         dateSource:response
+       })
+       returnMarkedDates(response);
+      })
+      .catch((error)=>{alert(error);});
+}
 
    onPressDate(day)
   {
