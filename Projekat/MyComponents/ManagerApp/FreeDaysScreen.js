@@ -39,7 +39,7 @@ export default class FreeDaysScreen extends React.Component {
         body:formData
       };
      
-      fetch("http://192.168.0.14/Scripts/Manager.php",fetchData)
+      fetch("http://192.168.1.15/Scripts/Manager.php",fetchData)
       .then((response)=>response.json())
       .then((response)=>{
         alert(response);
