@@ -1,0 +1,56 @@
+import React, {StyleSheet} from 'react-native';
+import { Content } from 'native-base';
+
+
+export default StyleSheet.create({
+
+    containerImage:{
+        flex:1,
+        height:null,
+        flexDirection:'column',
+        resizeMode:"cover"
+
+    },
+    containerImageLayer1:{
+        flex:1,
+        width:'100%',
+        height:'100%',
+        
+    },
+    containerImageLayer:{
+        flex:1
+    },
+    containerTOView:{
+        flex:5,
+        justifyContent:'center',
+        flexDirection:'row',
+    },
+    containerTO:
+    {
+        flex:1,
+        opacity:1.4,
+        backgroundColor:'transparent',
+        alignItems:'center',
+        justifyContent: 'center',
+    },
+    containerTextInput:{
+        borderColor:'black',
+        backgroundColor:"magenta"
+    },
+    gornjideo:{
+        flex:4
+    },
+    donjipravougaonik:{
+        flex:1,
+        padding:0,
+        margin:0,
+        flexDirection:'row'
+    },
+    dole:{
+        flex:2
+    },
+    levo:{
+        flex:1
+    }
+
+})

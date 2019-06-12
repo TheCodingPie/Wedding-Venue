@@ -1,0 +1,79 @@
+import React from 'react';
+import { StyleSheet, Text, View,TextInput,Button } from 'react-native';
+import {createSwitchNavigator,createAppContainer} from 'react-navigation';
+import styles from '../../styles';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import FetchConstants from '../../Classes/fetchConstants';
+
+export default class FirstPageScreenNewlywedsApp extends React.Component {
+  static navigationOptions={
+
+    header:null
+  }
+    constructor(){
+       super()
+       this.state={
+         email:"",
+         password:""
+
+         }
+
+    }
+
+    handleChangeTextEmail=(newText)=>this.setState({email:newText});
+    handleChangeTextPassword=(newText)=>this.setState({password:newText});
+    login=()=>{
+      if(this.state.id=="" && this.state.password=="")
+      {
+      alert( "Trebate uneti id restorana i password" );
+      return;
+      }
+
+      const formData=new FormData();
+      formData.append("login",1);
+      formData.append("email",this.state.email);
+      formData.append("password",this.state.password);
+      const fetchData={
+        method:"post",
+        body:formData
+      };
+     
+      fetch( FetchConstants.url+"/BrideAndGroom.php",fetchData)
+      .then((response)=>response.json())
+      .then((response)=>{
+       if(response!==null)
+       this.props.navigation.navigate('NewlywedsAppSecondPage',{wedid:response});
+       else
+       {
+        alert("Wrong password");
+        this.state.id="";
+        this.state.password="";
+       }
+      })
+      .catch((error)=>{alert(error);});
+    }
+    
+     
+
+render() {
+    return (
+       <View style={styles.ManagerBackground} >
+           <View style={styles.ManagerUpFirstPage}></View>
+           <View style={styles.container}>
+                <TextInput style={styles.textinput} placeholder='Email' onChangeText={this.handleChangeTextEmail} /> 
+            </View>
+            <View style={styles.containerA}></View>
+            <View style={styles.container}>
+                <TextInput style={styles.textinput} placeholder='Password' onChangeText={this.handleChangeTextPassword} /> 
+            </View>
+            <View style={styles.containerA}></View>
+            <View style={styles.container}>
+              <TouchableOpacity title='Unesi' onPress={this.login }><Text>Login</Text>
+              </TouchableOpacity>       
+            </View>
+     </View>
+    );
+  }
+}
+
+

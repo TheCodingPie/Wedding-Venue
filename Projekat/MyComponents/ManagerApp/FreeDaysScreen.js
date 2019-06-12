@@ -1,8 +1,12 @@
 import React from 'react';
 import { StyleSheet, Text, View,TextInput,Button } from 'react-native';
-import {Header,Left,Icon} from 'native-base';
+//import {Left,Icon} from 'native-base';
+import {Header, Icon,Left} from 'native-base';
+//import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import {Calendar} from 'react-native-calendars';
+import {CalendarList,LocaleConfig} from 'react-native-calendars';
+import FetchConstants from '../../Classes/fetchConstants';
+
 
 
 let markedDates=[];
@@ -17,13 +21,23 @@ export default class FreeDaysScreen extends React.Component {
       dateSource:[],
       markedD:newDaysObject
     }
-       
+    LocaleConfig.locales['sr'] = {
+      monthNames: ['Januar','Februar','Mart','April','Maj','Jun','Jul','Avgust','Septembar','Oktobar','Novembar','Decembar'],
+      monthNamesShort: ['Janv.','Févr.','Mars','Avril','Mai','Juin','Juil.','Août','Sept.','Oct.','Nov.','Déc.'],
+      dayNames: ['Ponedeljak','Utorak','Sreda','Mercredi','Jeudi','Vendredi','Samedi'],
+      dayNamesShort: ['Pon','Uto','Sre','Cet','Pet','Sub','Ned'],
+      today: 'Danas\'hui'
+    };   
+    //PAVLE
+    //dodati onDayLongPress={(day) => {na kreiraj Vencanje}}
+    LocaleConfig.defaultLocale = 'sr';
    returnMarkedDates=(markedDates)=>{ markedDates.forEach((day) => {
       newDaysObject = {
         ...newDaysObject,
         [day]: {
           selected: true,
-          marked: true
+          marked: true,
+          selectedColor:'#49beb7'
         }
       };
     }); 
@@ -39,10 +53,10 @@ export default class FreeDaysScreen extends React.Component {
         body:formData
       };
      
-      fetch("http://192.168.1.15/Scripts/Manager.php",fetchData)
+      fetch(FetchConstants.url+"/Manager.php",fetchData)
       .then((response)=>response.json())
       .then((response)=>{
-        alert(response);
+
        this.setState({
          isLoading:false,
          dateSource:response
@@ -80,26 +94,46 @@ export default class FreeDaysScreen extends React.Component {
  
 
 
-
+   // <View >
 
     return (
       <View style={styles.container} >
-      <Header>
-    <Left>
-    <Icon name='menu' onPress={()=>this.props.navigation.openDrawer()} />
+     
+       <Header style={{flexDirection:'column',backgroundColor:'#fbb0a9'}} >
+     
+       
+      <Icon name='menu' onPress={()=>this.props.navigation.openDrawer()} size={10} style={{ left: 10,position: 'absolute',flex:1}}/>
+    
+     
+      </Header>
+   
 
-   </Left>
-  </Header>
 
 
-   <View style={styles.calendar}>
-   <Calendar
+   <CalendarList
+       pastScrollRange={1}
+      futureScrollRange={24}
+       scrollEnabled={true}
       onDayPress={(day)=>{this.onPressDate(day.dateString)}}
       markedDates={this.state.markedD}
-       theme={{  backgroundColor: '#ffffff'}}
+      theme={{
+        calendarBackground: 'white',
+        textSectionTitleColor: '#B23242',// ovo je naziv dana
+        dayTextColor: 'black',//brojka dana
+        todayTextColor: '#B23242',//danasnji dan
+        selectedDayTextColor: 'white',
+        monthTextColor: '#B23242',
+        indicatorColor: 'red',// ne znam sta je 
+        selectedDayBackgroundColor: '#fbb0a9',
+        textDayHeaderFontSize: 16,//font dana
+        textMonthFontSize: 25,
+        
+        
+      
+      }}
        />
        
-   </View>
+  
 </View>   
     );
     
@@ -148,7 +182,7 @@ const styles=StyleSheet.create({
     borderTopWidth: 1,  
     borderBottomWidth:1,
     height:'100%',
-    backgroundColor: 'green',
+    backgroundColor: '#ddc6ad',
     
 
   },

@@ -1,0 +1,94 @@
+import { StyleSheet} from 'react-native';
+
+const styles = StyleSheet.create({
+  form: {
+      flex: 1,
+      alignItems: 'center',
+      justifyContent: 'center',
+      flexDirection:'column',
+
+    },
+    floorPlanView: {
+      flex: 1,
+      alignItems: 'center',
+      justifyContent: 'flex-end',
+      flexDirection:'column',
+
+      backgroundColor: '#ecb3ff',
+    },
+
+    floorPlan: {
+      flex: 1,
+      alignItems: 'flex-end',
+      justifyContent: 'center',
+      flexDirection:'row',
+      
+      backgroundColor: 'red',
+    },
+   flex1:{
+      flex:1,
+      
+   },
+
+   textinput:{
+    backgroundColor: 'white',
+    borderRadius:50,
+    flex:1
+    },
+    text:{
+      flex:0.3,
+      color: 'black',
+      fontWeight: 'bold',
+      fontSize: 14,
+      height:20,
+     },
+    container:{
+      flex: 1,
+      flexDirection:'row',
+      justifyContent:'center',
+      alignItems:'center',
+      flex:0.75,
+    },
+    containerB:{
+      flex: 1,
+      flexDirection:'row',
+      justifyContent:'center',
+      alignItems:'center',
+      backgroundColor:'#407a38',
+      flex:0.75,
+    },
+    ManagerTO:{
+     flex:0.75,
+     backgroundColor:'#f99388',
+    },
+    ManTOrow:{
+      flex: 1,
+      flexDirection:'row',
+      justifyContent:'center',
+      alignItems:'center'
+    },
+    containerA:{
+      flex: 1,
+      flexDirection:'column',
+      justifyContent:'center',
+      alignItems:'center'
+    },
+    CircleShapeView: {
+    width: 60,
+    height: 60,
+    borderRadius: 150/2,
+    backgroundColor: '#00BCD4',
+    margin:6
+},
+    ManagerBackground:{
+      flex:1,
+      flexDirection:'column',
+      backgroundColor:'#ddc6ad'
+    },
+    ManagerUpFirstPage:{
+      flex:3,
+    }
+   
+});
+
+export default styles;

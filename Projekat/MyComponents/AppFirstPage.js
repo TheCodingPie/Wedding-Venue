@@ -17,28 +17,8 @@ export default class AppFirstPageScreen extends React.Component {
        color:'black',
 
      }
-     this.state.firstPageTO={
-      borderColor:'black',
-      opacity:100,
-      borderStyle:'solid',
-      borderWidth:2
-     }
-     setInterval(()=>{
-       if(this.state.firstPageBtnStyles.color=='black')
-       {
-         this.setState({
-           firstPageBtnStyles:'white',
-           opacity:0
-         })
-       }
-       else{
-         this.setState({
-          firstPageBtnStyles:{
-            color:'black'
-          }
-         })
-       }
-     },1000);
+    
+     
 
   }
   static navigationOptions={
@@ -79,19 +59,38 @@ export default class AppFirstPageScreen extends React.Component {
               <ImageBackground source ={require( './Images/Vencanje.jpg')} style={styles.containerImage} >
                  <View style={styles.containerImageLayer1}>
 
-                 <View style={styles.containerImageLayer}>
-                  <TouchableOpacity style={this.state.firstPageTO} onPress={this.btnGostPress}><Text style={this.state.firstPageBtnStyles}>Gost</Text></TouchableOpacity>
-             
-                 <TouchableOpacity style={this.state.firstPageTO} onPress={this.btnMladenciPress}><Text style={this.state.firstPageBtnStyles}>Mladenci</Text></TouchableOpacity>          
-                
-                  <TouchableOpacity style={this.state.firstPageTO} onPress={this.btnKonobarPress}><Text style={this.state.firstPageBtnStyles}>Konobar</Text></TouchableOpacity>
+                 
+                 <View style={styles.gornjideo}></View>
+                 <View style={styles.donjipravougaonik}>
+                  <View style={styles.levo}></View>
+                  <TouchableOpacity style={styles.firstPageTO} onPress={this.btnGostPress}><Text style={{fontFamily:'news701i',fontSize:30,alignItems:'center',color:'white'}}>Gost</Text></TouchableOpacity>
                   
-                  <TouchableOpacity style={this.state.firstPageTO} onPress={this.btnHostesaPress}><Text style={this.state.firstPageBtnStyles}>Hostesa</Text></TouchableOpacity>
-              
-                  <TouchableOpacity style={this.state.firstPageTO} onPress={this.btnMenadzerPress}><Text style={this.state.firstPageBtnStyles}>Menadzer</Text></TouchableOpacity>
-                  
-
+                  <View style={styles.levo}></View>
                   </View>
+                  <View style={styles.donjipravougaonik}>
+                  <View style={styles.levo}></View>
+                  <TouchableOpacity style={styles.firstPageTO} onPress={this.btnMladenciPress}><Text style={{fontFamily:'news701i',fontSize:30,alignItems:'center',color:'white'}}>Mladenci</Text></TouchableOpacity>
+                 <View style={styles.levo}></View>
+                 </View>
+                  <View style={styles.donjipravougaonik}>
+                  <View style={styles.levo}></View>
+                  <TouchableOpacity style={styles.firstPageTO} onPress={this.btnHostesaPress}><Text style={{fontFamily:'news701i',fontSize:30,alignItems:'center',color:'white'}}>Hostesa</Text></TouchableOpacity>
+                  <View style={styles.levo}></View>
+                  </View>
+                  <View style={styles.donjipravougaonik}>
+                  <View style={styles.levo}></View>
+                  <TouchableOpacity style={styles.firstPageTO} onPress={this.btnKonobarPress}><Text style={{fontFamily:'news701i',fontSize:30,alignItems:'center',color:'white'}}>Konobar</Text></TouchableOpacity> 
+                  <View style={styles.levo}></View>
+                  </View>
+                  <View style={styles.donjipravougaonik}>
+                  <View style={styles.levo}></View>
+                  <TouchableOpacity style={styles.firstPageTO} onPress={this.btnMenadzerPress}><Text style={{fontFamily:'news701i',fontSize:30,alignItems:'center',color:'white'}}>Menadžer</Text></TouchableOpacity>
+                  <View style={styles.levo}></View>
+                  </View>
+
+                  <View style={styles.dole}></View>
+
+                 
                   </View>
                    
               </ImageBackground>
@@ -104,15 +103,9 @@ export default class AppFirstPageScreen extends React.Component {
 
   }
   
-  
-    /*const styles = StyleSheet.create({
-        form: {
-            flex: 1,
-            alignItems: 'center',
-            justifyContent: 'center',
-          
-            backgroundColor: '#ecb3ff',
-          },
+  /*
+    const styles = StyleSheet.create({
+       
     
          textinput:{
           flex:0.6,
@@ -137,5 +130,5 @@ export default class AppFirstPageScreen extends React.Component {
             backgroundColor: '#ecb3ff',
           },
          
-    }); */
-    
+    }); 
+    */
