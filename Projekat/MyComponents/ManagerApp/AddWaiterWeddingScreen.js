@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View,TextInput,TouchableOpacity ,Image,  } from 'react-native';
+import { StyleSheet, Text, View,TextInput,TouchableOpacity ,Image,Dimensions,Alert  } from 'react-native';
 import styles from '../../styles'
 import Draggable from 'react-native-draggable';
 import Table from '../../Classes/classTable';
@@ -15,9 +15,17 @@ function prikaziGoste(tableid)
 var rdbtns=[];
 
 let stageAndWeddtable=[];
-    stageAndWeddtable.push( <Draggable key={1}   renderSize={85} renderColor='black' offsetX={-110} offsetY={0} renderShape='image' imageSource={require('../Images/stozamladence.png')} pressDrag={()=>alert('touched!!')}/>);
-    stageAndWeddtable.push( <Draggable key={2}   renderSize={70} renderColor='black' offsetX={195} offsetY={0} renderShape='image' imageSource={require('../Images/stozamladence.png')} pressDrag={()=>alert('touched!!')}/> );
+if(Dimensions.get('window').width<500)
+{
+stageAndWeddtable.push( <Draggable key={1}   renderSize={85} renderColor='black' offsetX={-100} offsetY={15} renderShape='image' imageSource={require('../Images/stozamladence.png')} />);
+stageAndWeddtable.push( <Draggable key={2}   renderSize={70} renderColor='black' offsetX={180} offsetY={15} renderShape='image' imageSource={require('../Images/stozamladence.png')} /> );
+}
+else
+{
+  stageAndWeddtable.push( <Draggable key={1}   renderSize={100} renderColor='black' offsetX={-290} offsetY={15} renderShape='image' imageSource={require('../Images/stozamladence.png')} />);
+stageAndWeddtable.push( <Draggable key={2}   renderSize={85} renderColor='black' offsetX={390} offsetY={15} renderShape='image' imageSource={require('../Images/stozamladence.png')} /> );
 
+}
 var toRender=[];
 
 export default class AddWaiterWeddingScreen extends React.Component {
@@ -42,7 +50,7 @@ export default class AddWaiterWeddingScreen extends React.Component {
         
 }
 
-showDialog = (tableid) => this.setState({ visible: true,tableId:tableid });
+showDialog = (tableid,index) => this.setState({ visible: true,tableId:tableid });
 
   hideDialog = () => this.setState({ visible: false });
 
@@ -65,12 +73,23 @@ showDialog = (tableid) => this.setState({ visible: true,tableId:tableid });
       var tablestorender=[];
       var arr=[];
       var tablespom=[];
-    response.forEach((x,i)=>tablespom.push(new Table(x.shape,x.capacity,this.state.wedid,x.idTable,parseInt(x.x),parseInt(x.y),0)));
+      let radius=25;
+      if(parseInt(Dimensions.get('window').width)>415)
+      {
+        radius=radius*(parseInt(Dimensions.get('window').width)/411);
+        radius=35;
+      }
+    
+    response.forEach((x,i)=>{
+      let posX=parseInt(parseInt(Dimensions.get('window').width)*parseInt(x.x)/411);
+      let posY=parseInt(parseInt(Dimensions.get('window').height)*parseInt(x.y)/683);
+      tablespom.push(new Table(x.shape,x.capacity,this.state.wedid,x.idTable,posX,posY,0));
+    });
     tablespom
   .forEach((table,index)=>//nije optimizovana al nece radi drugacije
   {
     tablestorender
-    .push( <Draggable key={index}  renderSize={30} ref={(draggable) => {arr[index] = draggable;}} pressInDrag={()=>this.showDialog(table.id)} reverse={false} renderColor='black' renderShape={table.shape} x={table.x} y={table.y} renderText={table.capacity+"\n"+table.id} />);
+    .push( <Draggable key={index}  renderSize={radius} ref={(draggable) => {arr[index] = draggable;}} pressInDrag={()=>this.showDialog(table.id,index)} reverse={false} renderColor='black' renderShape={table.shape} x={table.x} y={table.y} renderText={table.capacity+"\n"+table.id} />);
   });
     this.setState({tr:tablestorender});
     }) 
@@ -78,7 +97,7 @@ showDialog = (tableid) => this.setState({ visible: true,tableId:tableid });
     
   }
   dodeliKonobara=()=>{
-    alert(this.state.tableId+" "+this.state.radioBtnsData[this.state.checked].name+" "+this.state.radioBtnsData[this.state.checked].id);
+   
     this.hideDialog();
     const formData=new FormData();
     formData.append("updateTableWaiter",1);
@@ -92,7 +111,8 @@ showDialog = (tableid) => this.setState({ visible: true,tableId:tableid });
     fetch(FetchConstants.url+"/Manager.php",fetchData)
     .then((response)=>response.json())
     .then((response)=>{
-     // alert(response);
+      Alert.alert("Obaveštenje","Dodelili ste stolu "+this.state.tableId+" konobara: "+this.state.radioBtnsData[this.state.checked].name);
+     
     }) 
     .catch((error)=>{alert(error);});
   }

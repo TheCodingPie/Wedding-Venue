@@ -54,7 +54,7 @@ export default class FourthPageScreenHostessApp extends React.Component {
     if(parseInt(this.props.navigation.state.params.members.length)==1)
     {
       cc[0].push({ime:this.props.navigation.state.params.members[0].name})
-      pp.push({prezime:this.props.navigation.state.params.members[0].lastname})
+      pp.push({prezime:this.props.navigation.state.params.members[0].lastname,id:this.props.navigation.state.params.members[0].id})
     }
     else
     {
@@ -76,7 +76,7 @@ export default class FourthPageScreenHostessApp extends React.Component {
         else
         cc[j+1].push({ime:this.props.navigation.state.params.members[i].name})
        
-        pp.push({prezime:this.props.navigation.state.params.members[0].lastname})
+        pp.push({prezime:this.props.navigation.state.params.members[0].lastname,id:this.props.navigation.state.params.members[0].id})
         j++;
         
     }
@@ -103,7 +103,7 @@ export default class FourthPageScreenHostessApp extends React.Component {
     //alert("lalal");
     const formData=new FormData();
     formData.append("TableWed",1);
-    formData.append("wedId",1);
+    formData.append("wedId",this.state.wedid);
     const fetchData={
       method:"post",
       body:formData
@@ -114,14 +114,20 @@ export default class FourthPageScreenHostessApp extends React.Component {
       var tablestorender=[];
       var arr=[];
       var tablespom=[];
-    response.forEach((x,i)=>tablespom.push(new Table(x.shape,x.capacity,this.state.wedid,x.idTable,parseInt(x.x),parseInt(x.y),0)));
+    response.forEach((x,i)=>{
+      let posX=parseInt(parseInt(Dimensions.get('window').width)*parseInt(x.x)/411);
+      let posY=parseInt(parseInt(Dimensions.get('window').height)*parseInt(x.y)/683);
+      tablespom.push(new Table(x.shape,x.capacity,this.state.wedid,x.idTable,posX,posY,0))});
+    
+     // tablespom.push(new Table(x.shape,x.capacity,this.state.wedid,x.idTable,parseInt(x.x),parseInt(x.y),0))});
     tablespom
   .forEach((table,index)=>//nije optimizovana al nece radi drugacije
   {
    
     tablestorender
-    .push( <Draggable key={index}  renderSize={30} ref={(draggable) => {arr[index] = draggable;}} longPressDrag={()=>updateXanY(arr[index].state._value.x,arr[index].state._value.y,table,index)}  pressDrag={this.showDialog} reverse={false} renderColor='black' renderShape={table.shape} x={table.x} y={table.y} renderText={table.capacity+"\n"+table.id} />);
+    .push( <Draggable key={index}  renderSize={35} ref={(draggable) => {arr[index] = draggable;}} longPressDrag={()=>updateXanY(arr[index].state._value.x,arr[index].state._value.y,table,index)}  pressDrag={this.showDialog} reverse={false} renderColor='black' renderShape={table.shape} x={table.x} y={table.y} renderText={table.capacity+"\n"+table.id} />);
   });
+  
   this.props.navigation.navigate('HostessAppThirdPage',{wedid:this.state.wedid,famid:p.id,tr:tablestorender});
     }) 
     .catch((error)=>{alert(error);});

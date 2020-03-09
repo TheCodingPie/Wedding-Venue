@@ -180,13 +180,68 @@ LayoutAnimation.configureNext(LayoutAnimation.Presets.linear)
 
 
 
-  render() {   
+  render() {  return (
+         
+    <View  style={{backgroundColor:'#F1F1F1',flex:1}}>
+  <ScrollView>
 
-      
+  <View style={{display:'flex',flexDirection:'column'}}>
+ <View style={{alignItems:'center',backgroundColor:'#49beb7',height:50,justifyContent:'center'}}>
+  <Text style={{color:'white',fontSize:30}}>POZIVI </Text>
+  </View>
+{
+  this.state.notificationArray.map((element,index)=> (
+
+
+<ScrollView horizontal={true}  ref={(scrollView) => {arr[index] = scrollView;}} onMomentumScrollEnd={
+ (e) => {
+  
+
+   
+if(e.nativeEvent.contentOffset.x>=screenWidth-(screenWidth/2))
+ 
+this.removeItem(index)}}
+  >
+
+<ListItem style={{flex:1,alignItems:'center', paddingssRight:25}}
+
+topDivider={true}
+bottomDivider={true}
+   key={index} 
+   title={element.body}
+ 
+    containerStyle={{width:screenWidth-10,backgroundColor:'white',marginTop: 20,borderRadius:20,marginLeft: 5,marginRight: 5,borderColor:'#696969',borderWidth:2}}
+    titleStyle={{ fontWeight: 'bold', fontSize: 25,color: '#fbb0a9', }}
+    
+ />
+   <View  key={index} style={{width:screenWidth,alignItems:'center',justifyContent:'center', backgroundColor:'red',marginTop: 20,borderRadius:20,display:'flex',flexDirection:'row',justifyContent:'flex-start'}}>
+ <Text style={{color:'white',fontSize:30,paddingLeft:10}}>BRIŠI</Text>
+  </View>
+ </ScrollView>
+))
+
+}
+
+</View>
+</ScrollView>
+</View>
+
+ ); 
+
+ 
+    }
+
+
+  }
+
+
+
+  
+/*     
   return (
     <View style={{flex:1,backgroundColor:'#F1F1F1'}}>
-      <View style={{flex:0.15,alignItems:'center',justifyContent:'center'}}>
-      <Text style={{fontFamily:'news701i',fontSize:22,color:'#49beb7'}}>Dolazni pozivi:</Text>
+      <View style={{flex:0.15,alignItems:'center',justifyContent:'center',backgroundColor:'#49beb7'}}>
+      <Text style={{fontFamily:'news701i',fontSize:25,color:'white'}}>Dolazni pozivi:</Text>
       </View>
       <View style={{flex:0.85}}>
     <ScrollView>
@@ -212,8 +267,8 @@ this.state.notificationArray.map((element,index)=>(
   bottomDivider={true}
        key={index} 
         title={element.body}
-        containerStyle={{width:screenWidth-10,backgroundColor:'white',marginTop: 20,borderRadius:20,marginLeft: 5,marginRight: 5,borderColor:'#696969',borderWidth:2}}
-        titleStyle={{ fontWeight: 'bold', fontSize: 25,color: '#fbb0a9', }}
+        titleStyle={{color:'white'}}
+        buttonStyle={{ borderColor:'#49beb7',height: 50, width: 50, borderRadius: 30,borderWidth:1,backgroundColor:'#49beb7'}}
         
         
      /> 
@@ -242,12 +297,4 @@ this.state.notificationArray.map((element,index)=>(
    </View>
    </View>
 
-      ); 
-    }
-
-
-  }
-
-
-
-  
+      );  */

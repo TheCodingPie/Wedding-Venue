@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View,TextInput,Picker,TouchableOpacity,AsyncStorage,ScrollView,Dimensions} from 'react-native';
+import { StyleSheet, Text, View,TextInput,Picker,TouchableOpacity,AsyncStorage,ScrollView,Dimensions,Alert} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import styles from '../../styles';
 import FetchConstants from '../../Classes/fetchConstants';
@@ -85,6 +85,29 @@ export default class ThirdPageScreenNewlywedsApp extends React.Component {
     .catch((error)=>{alert(error);});
   }*/
   bntClick=()=>{
+    if( this.state.lastname=="")
+  {
+    Alert.alert("Obaveštenje","Proverite unete podatke.");
+    this.setState({
+  lastname:"",
+
+  numOfMembers:0
+  
+  })
+    return;
+  }
+  if(isNaN(this.state.numOfMembers))
+    {
+      
+      Alert.alert("Obaveštenje","Proverite unete podatke.");
+      this.setState({
+        lastname:"",
+      
+        numOfMembers:0
+        
+        })
+          return;
+    }
     const formData=new FormData();
     formData.append("addFamily",1);
     formData.append("lastname",this.state.lastname);
@@ -103,13 +126,20 @@ export default class ThirdPageScreenNewlywedsApp extends React.Component {
     .then((response)=>response.json())
     .then((response)=>{
      if(response==null)
-     alert("Waiter not added please check your data");
+     Alert.alert("Obaveštenje","Proverite podatke.");
      else
      {
-       alert(response);
+      Alert.alert("Obaveštenje","Dodali ste porodicu.");
+     // alert(response);
      // this.props.navigation.navigate('FifthPageScreenNewlywedsApp',{wedid:this.state.idWedding,numOfMembers:this.state.numOfMembers,familyId:parseInt(response)});
-     this.props.navigation.navigate('FifthPageScreenNewlywedsApp',{wedid:this.state.idWedding,numOfMembers:this.state.numOfMembers,familyId:parseInt(response)});
+     this.props.navigation.navigate('FifthPageScreenNewlywedsApp',{wedid:this.state.newlyweds.idWedding,numOfMembers:this.state.numOfMembers,familyId:parseInt(response)});
      }
+     this.setState({
+      lastname:"",
+    
+      numOfMembers:0
+      
+      })
     })
     .catch((error)=>{alert(error);});
   
@@ -133,8 +163,8 @@ export default class ThirdPageScreenNewlywedsApp extends React.Component {
       
                <View style={{flex:4,display:'flex',flexDirection:'column'}}>
                  <View style={{flex:0.15,alignItems:'center',justifyContent:'center' }}>
-                 <Text style={{fontFamily:'news701i',fontSize:18,alignItems:'center',color:'#f99388'}}>Forma za dodavanje</Text>
-                 <Text  style={{fontFamily:'news701i',fontSize:18,alignItems:'center',color:'#f99388'}}> porodice</Text>
+                 <Text style={{fontFamily:'news701i',fontSize:20,alignItems:'center',color:'#f99388'}}>Forma za dodavanje</Text>
+                 <Text  style={{fontFamily:'news701i',fontSize:20,alignItems:'center',color:'#f99388'}}> porodice</Text>
                  </View>
                  <View style={{flex:0.07}}></View>
                  
@@ -143,19 +173,21 @@ export default class ThirdPageScreenNewlywedsApp extends React.Component {
          <View style={{flex:0.8 ,flexDirection:'column',display:'flex'}}>
            <View style={{flex:1 ,alignItems:'center',justifyContent:'center', flexDirection:'row'}}>
              <View style={{flex:0.1}}></View>
-        <TextInput placeholder="Prezime" style={{fontSize:18 ,borderBottomColor:'black',borderBottomWidth:1,flex:1}} placeholderTextColor='#f99388' onChangeText={this.handleChangeTextLastname}></TextInput>
+        <TextInput value={this.state.lastname} placeholder="Prezime" style={{fontSize:18 ,borderBottomColor:'black',borderBottomWidth:1,flex:1}} placeholderTextColor='#f99388' onChangeText={this.handleChangeTextLastname}></TextInput>
         <View style={{flex:0.1}}></View>
         </View>
        <View style={{flex:1 ,alignItems:'center',justifyContent:'center',flexDirection:'row'}}>
        <View style={{flex:0.1}}></View>
-        <TextInput placeholder="Broj članova porodice"  style={{fontSize:18,borderBottomColor:'black',borderBottomWidth:1,flex:1}} placeholderTextColor='#f99388' onChangeText={this.handleChangeTextNumOfMembers}></TextInput>
+        <TextInput value={this.state.numOfMembers} placeholder="Broj članova porodice"  style={{fontSize:18,borderBottomColor:'black',borderBottomWidth:1,flex:1}} placeholderTextColor='#f99388' onChangeText={this.handleChangeTextNumOfMembers}></TextInput>
         <View style={{flex:0.1}}></View>
         </View>
-        <View  style={{flex:1}}  >
-          <View style={{flex:0.3}}></View>
-          <View style={{ borderWidth: 1, borderColor: '#bdc3c7', overflow: 'hidden',flex:1,fontSize:25}}>
+        <View  style={{flex:1 }}   >
+          <View style={{flex:0.4}}></View>
+          <View style={{ flex:1,fontSize:25,flexDirection:'row'}}>
+            <View style={{flex:0.07}} ></View>
+            <View  style={{ borderWidth: 1, borderColor:'#fbb0a9', overflow: 'hidden',flex:1,fontSize:25,flexDirection:'row'}}>
         <Picker
-        style={{flex:0.4}}
+        style={{flex:1}}
         mode='dropdown'
     selectedValue={this.state.guestType}
     onValueChange={(loc) => this.setState({guestType: loc})}>
@@ -165,7 +197,9 @@ export default class ThirdPageScreenNewlywedsApp extends React.Component {
   <Picker.Item  color="#fbb0a9" label="Kolege" value="kolege"/>
 </Picker>
 </View>
-<View style={{flex:0.3}}></View>
+<View style={{flex:0.07}}></View>
+</View>
+<View style={{flex:0.6}}></View>
 </View>
 <View style={{flex:1}}>
        <View style={{flex:0.35}}></View>

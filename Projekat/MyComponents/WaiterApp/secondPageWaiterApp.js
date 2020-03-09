@@ -28,7 +28,7 @@ export default class SecondPageScreenWaiterApp extends React.Component {
     super(props);
     this.state={
       waiterId:this.props.navigation.state.params.waiterId,
-      date:'2019-06-07',//mora danasnji datum da bude
+      date:new Date().toISOString().split('T')[0],//mora danasnji datum da bude
       listaPredjela:[],
       p:1
     }
@@ -208,7 +208,7 @@ render() {
          subtitleStyle={{ fontWeight: 'bold', fontSize: 19,color: '#49beb7', }}
       />
         <View  key={indeks} style={{width:screenWidth,alignItems:'center',justifyContent:'center', backgroundColor:'red',marginTop: 20,borderRadius:20,display:'flex',flexDirection:'row',justifyContent:'flex-start'}}>
-      <Text style={{color:'white',fontSize:30,paddingLeft:10}}>BRISI</Text>
+      <Text style={{color:'white',fontSize:30,paddingLeft:10}}>BRIŠI</Text>
        </View>
       </ScrollView>
     ))

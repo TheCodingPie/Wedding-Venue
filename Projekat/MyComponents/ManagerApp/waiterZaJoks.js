@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View,TextInput,Button,ScrollView,TouchableOpacity,Dimensions } from 'react-native';
+import { StyleSheet, Text, View,TextInput,Button,ScrollView,TouchableOpacity,Dimensions,Alert } from 'react-native';
 import styles from '../../styles';
 import { Icon,Header} from 'native-base';
 import DatePicker from 'react-native-date-picker';
@@ -11,7 +11,7 @@ export default class waiterZaJoks extends React.Component{
         this.state={
             peoplenum:0,
             weddingId:-1,
-            date:new Date().toISOString().split('T')[0],
+            date:new Date(),
      
         }
     
@@ -35,7 +35,11 @@ export default class waiterZaJoks extends React.Component{
         fetch( FetchConstants.url+"/Manager.php",fetchData)
         .then((response)=>response.json())
         .then((response)=>{
+          if(response!=null)
         this.props.navigation.navigate('AddWaiterWeddingScreen',{wedid:response});
+        else{
+          Alert.alert("Obaveštenje","Proverite datum venčanja.");
+        }
         })
         .catch((error)=>{alert(error);});
         
@@ -75,7 +79,7 @@ render()
        <DatePicker mode='date'   
             placeholder="select date"
             format="YYYY-MM-DD"
-          
+            timeZoneOffsetInMinutes={(new Date()).getTimezoneOffset()*+1}
              date={this.state.date} textColor='#fbb0a9' locale='ba' style={{flex:1,flexDirection:'column'}} onDateChange={this.handleDateChange}></DatePicker>
              <View style={{flex:0.2}}></View>
        </View>
@@ -85,7 +89,7 @@ render()
         <View style={{flex:1}}></View>
         <View style={{display:'flex',flex:5,flexDirection:'column'}}>
             <View style={{display:'flex',flex:1,flexDirection:'row'}}>
-        <TouchableOpacity style={{flex:5,flexDirection:"column",borderRadius:30, alignItems:'center',justifyContent:'center',backgroundColor:'#fbb0a9'}} onPress={this.findWeddingId}><Text style={{color:'white'}}>Dodeli</Text></TouchableOpacity>
+        <TouchableOpacity style={{flex:5,flexDirection:"column",borderRadius:30, alignItems:'center',justifyContent:'center',backgroundColor:'#fbb0a9'}} onPress={this.findWeddingId}><Text style={{color:'white',fontSize:20}}>Dodeli</Text></TouchableOpacity>
         </View>
         </View>
         <View style={{flex:1}}></View>

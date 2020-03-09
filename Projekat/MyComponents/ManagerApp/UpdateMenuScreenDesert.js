@@ -3,7 +3,7 @@ import React from 'react';
 
 import FetchConstants from '../../Classes/fetchConstants';
 
-import { StyleSheet, Text, View,TextInput,Button,TouchableOpacity,CheckBox,Picker ,ImageBackground,Dimensions,Image} from 'react-native';
+import { StyleSheet, Text, View,TextInput,Button,TouchableOpacity,CheckBox,Picker ,ImageBackground,Dimensions,Image,Alert} from 'react-native';
 
 import LinearGradient from 'react-native-linear-gradient';
 import { ScrollView } from 'react-native-gesture-handler';
@@ -24,7 +24,7 @@ export default class UpdateMenuScreenDesert extends React.Component {
         opacity:0
 
          }
-         cb=false;
+         cb=true;
          this.returnDeserts();
 
     }
@@ -52,9 +52,9 @@ export default class UpdateMenuScreenDesert extends React.Component {
       .then((response)=>response.json())
       .then((response)=>{
        if(response==true)
-       alert("Desert je izmenjen");
+       Alert.alert("Obaveštenje","Izmenili ste desert.");
        else
-       alert("Desert nije izmenjen");
+       Alert.alert("Obaveštenje","Niste izmenili ste desert.");
       })
       .catch((error)=>{alert(error);});
     }
@@ -91,7 +91,7 @@ export default class UpdateMenuScreenDesert extends React.Component {
 
 render() {
     return (
-      <ScrollView contentContainerStyle={{ height:Dimensions.get('window').height*0.9}}>
+      <ScrollView contentContainerStyle={{ height:Dimensions.get('window').height*0.95}}>
       <ImageBackground source={require('../Images/marble.jpg')} style={{ display:'flex', flexDirection:'column',flex:1,width: '100%', height: '100%'}}>
               <View style={{display:'flex', flexDirection:'row',flex:1,backgroundColor:'#fbb0a9'}}>
                       <View  style={{display:'flex',flex:1,flexDirection:'row',alignContent:'center',justifyContent:'center',borderBottomColor:'#fbb0a9',borderBottomWidth:4,
@@ -121,7 +121,7 @@ render() {
           <View style={{flex:2.2,alignContent:'stretch',justifyContent:'center'}}><Text style={{fontFamily:'cursive',fontSize:33,color:'black'}}>Izmena deserta</Text></View>
           <View style={{flex:10,display:'flex',flexDirection:'row'}}>
               <View style={{flex:0.5}}></View>
-              <LinearGradient start={{x: 0, y: 0}} end={{x:0 , y: 1}} colors={['white','#F1F1F1']} style={{flex:1,flex:8.5,display:'flex',flexDirection:'row',borderRadius:20,borderColor:'grey',borderWidth:1}}>
+              <LinearGradient start={{x: 0, y: 0}} end={{x:0 , y: 1}} colors={['white','#F1F1F1']} style={{flex:1,flex:8.5,display:'flex',flexDirection:'row',borderRadius:20,borderColor:'white',shadowOffset:{width:2,height:4},shadowOpacity:0.8,shadowRadius:2,elevation:5,shadowColor:'#000'}}>
                 <View style={{flex:1}}></View>
                 <View style={{flex:4,display:'flex',flexDirection:'column'}}>
                    <View style={{flex:3}}></View>

@@ -1,10 +1,11 @@
 import React from 'react';
-import { StyleSheet, Text, View,TextInput,Button,TouchableOpacity ,ImageBackground,Image, Dimensions,ScrollView,AsyncStorage} from 'react-native';
+import { StyleSheet, Text, View,TextInput,Button,TouchableOpacity ,ImageBackground,Image, Dimensions,ScrollView,AsyncStorage,Alert} from 'react-native';
 import {createSwitchNavigator,createAppContainer} from 'react-navigation';
 import styles from '../../styles'
 import Manager from '../../Classes/classManager';
 import FetchConstants from '../../Classes/fetchConstants';
 import{ StackActions,NavigationActions} from 'react-navigation';
+import EMail from '../../Classes/EMail';
 
 export default class ManagerAppCreateAccount extends React.Component {
 
@@ -13,7 +14,8 @@ export default class ManagerAppCreateAccount extends React.Component {
        this.state={
 
         id:"",
-        password:""
+        password:"",
+        email:""
 
 
         }
@@ -21,16 +23,23 @@ export default class ManagerAppCreateAccount extends React.Component {
     }
     handleChangeTextid=(newText)=>this.setState({id:newText});
     handleChangeTextPassword=(newText)=>this.setState({password:newText});
+    handleChangeTextEmail=(newText)=>this.setState({email:newText});
     static navigationOptions={
 
         header:null
       }
       createManager=()=>{
+        
+        if(isNaN(this.state.id))
+        {
+          Alert.alert("Obaveštenje","Niste uneli validan id, posavetujte se sa menađžerom.");
+          return;
+        }
         const formData=new FormData();
         formData.append("createManager",1);
-        formData.append("id","tatli");
-        formData.append("password","papa");
-        formData.append("uniqueId","kkwo");
+        formData.append("id",this.state.email);
+        formData.append("password",this.state.password);
+        formData.append("uniqueId",this.state.id);
         const fetchData={
           method:"post",
           body:formData
@@ -39,10 +48,16 @@ export default class ManagerAppCreateAccount extends React.Component {
         fetch(FetchConstants.url+"/Manager.php",fetchData)
         .then((response)=>response.json())
         .then((response)=>{
-        
-         alert(response);
+          EMail.send(this.state.email,this.state.password,"Menadzer");
+         Alert.alert("Obaveštenje",response);
+         this.setState({
+          id:"",
+          password:"",
+          email:""
+        });
         })
         .catch((error)=>{alert(error);});
+        
         /*
         if(isset($_POST["createManager"]))
       {
@@ -67,7 +82,7 @@ render() {
             <View style={{flex:2.5}}></View>
             <View style={{display:"flex",flexDirection:"row", flex:2,alignItems:'center',justifyContent:'center'}}>
             <View style={{flex:1}}></View>
-            <TextInput placeholder="Email" style={{flex:4,backgroundColor:'white',borderBottomColor:'black',borderBottomWidth:1}} value={this.state.id} onChangeText={this.handleChangeTextid} placeholderTextColor='#fbb0a9'></TextInput>
+            <TextInput placeholder="Email" style={{flex:4,backgroundColor:'white',borderBottomColor:'black',borderBottomWidth:1}} value={this.state.email} onChangeText={this.handleChangeTextEmail} placeholderTextColor='#fbb0a9'></TextInput>
             <View style={{flex:1}}></View>
             </View>
             <View style={{flex:2.5}}></View>
@@ -78,9 +93,15 @@ render() {
             </View>
             <View style={{flex:2.5}}></View>
             <View style={{display:"flex",flexDirection:"row", flex:2,alignItems:'center',justifyContent:'center'}}>
+            <View style={{flex:1}}></View>
+            <TextInput placeholder="Sifra restorana" secureTextEntry={true }style={{flex:4,backgroundColor:'white',borderBottomColor:'black',borderBottomWidth:1}} value={this.state.id} onChangeText={this.handleChangeTextid} placeholderTextColor='#fbb0a9'></TextInput>
+            <View style={{flex:1}}></View>
+            </View>
+            <View style={{flex:2.5}}></View>
+            <View style={{display:"flex",flexDirection:"row", flex:2,alignItems:'center',justifyContent:'center'}}>
           <View style={{flex:1}}></View>
           <View style={{display:'flex',flex:5,flexDirection:'column'}}>
-          <TouchableOpacity style={{flex:5,flexDirection:"column",borderRadius:30, alignItems:'center',justifyContent:'center',backgroundColor:'#fbb0a9'}} onPress={this.btnLogin}><Text style={{color:'white',fontSize:18}}>Prijavi se</Text></TouchableOpacity>
+          <TouchableOpacity style={{flex:5,flexDirection:"column",borderRadius:30, alignItems:'center',justifyContent:'center',backgroundColor:'#fbb0a9'}} onPress={this.createManager}><Text style={{color:'white',fontSize:18}}>Prijavi se</Text></TouchableOpacity>
           </View>
           <View style={{flex:1}}></View>
         </View>

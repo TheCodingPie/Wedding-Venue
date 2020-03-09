@@ -37,6 +37,11 @@ if(isset($_POST["updateTableFamily"]))
 $res=$baza->updateTableFamily($_POST["id"],$_POST["idTable"]);
 echo json_encode($res);
 }
+if(isset($_POST["clearTableFamily"]))
+{
+$res=$baza->clearTableFamily($_POST["id"]);
+echo json_encode($res);
+}
 if(isset($_POST["changeFamiliesTable"]))
 {
 $res=$baza->changeFamiliesTable($_POST["idFam1"],$_POST["idFam2"],$_POST["idTable1"],$_POST["idTable2"]);

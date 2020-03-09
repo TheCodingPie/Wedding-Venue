@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View,TextInput,Button,TouchableOpacity,CheckBox,Picker ,ImageBackground,Dimensions} from 'react-native';
+import { StyleSheet, Text, View,TextInput,Button,TouchableOpacity,CheckBox,Picker ,ImageBackground,Dimensions,Alert} from 'react-native';
 import styles from '../../styles'
 import FetchConstants from '../../Classes/fetchConstants';
 import LinearGradient from 'react-native-linear-gradient';
@@ -33,7 +33,13 @@ export default class menuFirstPageScreen extends React.Component {
     header:null
   }
 createStarter=()=>{
-  const formData=new FormData();
+  if(this.state.name=="")
+  {
+    Alert.alert("Obaveštenje","Proverite unete podatke.");
+    return;
+  }
+  
+  
   formData.append("createStarter",1);
   formData.append("vegeterian",this.state.vegeterian);
   formData.append("name",this.state.name);
@@ -48,7 +54,7 @@ createStarter=()=>{
   .then((response)=>response.json())
   .then((response)=>{
    if(response==true)
-   alert("Starter created")
+   Alert.alert("Obaveštenje","Kreirali ste predjelo.");
    else
    {
     alert("Starter not created");
@@ -99,7 +105,7 @@ render() {
             <View style={{flex:2}}></View>
             <View style={{flex:1.5,flexDirection:'row',alignContent:'center'}}>
              <CheckBox value={this.state.cb} style={{color:'#fbb0a9'}} onChange={()=>this.cbChange()}/>
-             <Text style={{flexGrow:1,color:'#fbb0a9'}}>Vegeterijansko</Text>
+             <Text style={{flexGrow:1,color:'#fbb0a9',fontSize:20}}>Vegeterijansko</Text>
              </View>
              <View style={{flex:2}}></View>
              
@@ -119,7 +125,7 @@ render() {
             <View style={{flex:2}}></View>
             <View style={{flex:1.5,display:'flex',flexDirection:'row',alignContent:'center',justifyContent:'center'}}>
               
-         <TouchableOpacity onPress={this.createStarter} style={{display:'flex',alignItems:'center',justifyContent:'center',borderRadius:25,backgroundColor:'#fbb0a9',flex:1}}><Text> Kreiraj predjelo</Text></TouchableOpacity>
+         <TouchableOpacity onPress={this.createStarter} style={{display:'flex',alignItems:'center',justifyContent:'center',borderRadius:25,backgroundColor:'#fbb0a9',flex:1}}><Text style={{fontSize:20}}> Kreiraj predjelo</Text></TouchableOpacity>
          </View>
          <View style={{flex:1.5}}></View>
           

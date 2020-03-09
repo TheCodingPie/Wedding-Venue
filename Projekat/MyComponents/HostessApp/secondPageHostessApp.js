@@ -14,7 +14,7 @@ export default class SecondPageScreenHostessApp extends React.Component {
        super()
        this.state={
          code:"",
-         date:'2019-06-07',  //new Date().toISOString().slice(0, 10) JOVANA UBACI TO
+         date:new Date().toISOString().split('T')[0],  //new Date().toISOString().slice(0, 10) JOVANA UBACI TO
          wedid:1
          }
         this.funkcija();
@@ -31,7 +31,7 @@ export default class SecondPageScreenHostessApp extends React.Component {
       fetch(FetchConstants.url+"/Hostess.php",fetchData)
       .then((response)=>response.json())
       .then((response)=>{
-       // alert(response);
+    
       this.setState({wedid:response});
       })
       .catch((error)=>{alert(error);});
@@ -55,7 +55,6 @@ export default class SecondPageScreenHostessApp extends React.Component {
       fetch(FetchConstants.url+"/Hostess.php",fetchData)
       .then((response)=>response.json())
       .then((response)=>{
-      //alert(response[0].id);
       this.props.navigation.navigate('zaJoks',{wedid:this.state.wedid,members:response});
   
       })

@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View,TextInput,Button,AsyncStorage,ScrollView,Dimensions,ImageBackground,Image,TouchableOpacity} from 'react-native';
+import { StyleSheet, Text, View,TextInput,Button,AsyncStorage,ScrollView,Dimensions,ImageBackground,Image,TouchableOpacity,Alert} from 'react-native';
 import {createSwitchNavigator,createAppContainer} from 'react-navigation';
 import styles from '../../styles';
 
@@ -24,9 +24,10 @@ export default class FirstPageScreenNewlywedsApp extends React.Component {
     handleChangeTextEmail=(newText)=>this.setState({email:newText});
     handleChangeTextPassword=(newText)=>this.setState({password:newText});
     login=()=>{
-     if(this.state.id=="" && this.state.password=="")
+     if(this.state.id=="" || this.state.password=="")
       {
-      alert( "Trebate uneti id restorana i password" );
+        Alert.alert("Obaveštenje","Proverite podatke");
+        this.setState({email:"",password:""})
       return;
       }
 
@@ -51,7 +52,7 @@ export default class FirstPageScreenNewlywedsApp extends React.Component {
       else{
         this.setState({email:""});
         this.setState({password:""});
-        alert("Wrong password");
+        Alert.alert("Obaveštenje","Proverite podatke");
       }
       })
       .catch((error)=>{alert(error);}); 
@@ -114,13 +115,13 @@ render() {
           <View style={{flex:2.5}}></View>
           <View style={{display:"flex",flexDirection:"row", flex:2,alignItems:'center',justifyContent:'center'}}>
           <View style={{flex:1}}></View>
-          <TextInput placeholder="Email" style={{flex:4,backgroundColor:'white',borderBottomColor:'black',borderBottomWidth:1}}  onChangeText={this.handleChangeTextEmail} placeholderTextColor='#fbb0a9'></TextInput>
+          <TextInput value={this.state.email} placeholder="Email" style={{flex:4,backgroundColor:'white',borderBottomColor:'black',borderBottomWidth:1}}  onChangeText={this.handleChangeTextEmail} placeholderTextColor='#fbb0a9'></TextInput>
           <View style={{flex:1}}></View>
           </View>
           <View style={{flex:2.5}}></View>
           <View style={{display:"flex",flexDirection:"row", flex:2,alignItems:'center',justifyContent:'center'}}>
           <View style={{flex:1}}></View>
-          <TextInput placeholder="Vaša sifra" secureTextEntry={true }style={{flex:4,backgroundColor:'white',borderBottomColor:'black',borderBottomWidth:1}} onChangeText={this.handleChangeTextPassword} placeholderTextColor='#fbb0a9'></TextInput>
+          <TextInput value={this.state.password} placeholder="Vaša sifra" secureTextEntry={true }style={{flex:4,backgroundColor:'white',borderBottomColor:'black',borderBottomWidth:1}} onChangeText={this.handleChangeTextPassword} placeholderTextColor='#fbb0a9'></TextInput>
           <View style={{flex:1}}></View>
           </View>
           <View style={{flex:2.5}}></View>

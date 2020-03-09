@@ -113,7 +113,7 @@ export default class prvaZaStackScreen extends React.Component {
   
   notification2
   .android.setChannelId('wv')
-  .android.setSmallIcon('ic_launcher');
+  .android.setSmallIcon('logo2019');
   
   
   

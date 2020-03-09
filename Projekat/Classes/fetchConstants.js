@@ -1,3 +1,3 @@
 export default class FetchConstants{
-    static url="http://192.168.0.26/Scripts";
+    static url="http://178.149.83.228:15231/Scripts";
 }

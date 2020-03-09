@@ -1,9 +1,10 @@
 import React from 'react';
-import { StyleSheet, Text, View,TextInput,Button,TouchableOpacity,CheckBox,Picker,ImageBackground,Dimensions} from 'react-native';
+import { StyleSheet, Text, View,TextInput,Button,TouchableOpacity,CheckBox,Picker,ImageBackground,Dimensions,Alert} from 'react-native';
 
 import styles from '../../styles';
 import FetchConstants from '../../Classes/fetchConstants';
 import { ScrollView } from 'react-native-gesture-handler';
+import LinearGradient from 'react-native-linear-gradient';
 
 export default class menuSecondPageScreen extends React.Component {
   
@@ -29,6 +30,11 @@ export default class menuSecondPageScreen extends React.Component {
   onTextChangeName=(newText)=>{this.setState({name:newText})};
   onTextChangePrice=(newText)=>{this.setState({price:newText})};
   createStarter=()=>{
+    if(this.state.name=="")
+    {
+      Alert.alert("Obaveštenje","Proverite unete podatke.");
+      return;
+    }
     const formData=new FormData();
     formData.append("createMain",1);
     formData.append("vegeterian",this.state.vegeterian);
@@ -44,7 +50,7 @@ export default class menuSecondPageScreen extends React.Component {
     .then((response)=>response.json())
     .then((response)=>{
      if(response==true)
-     alert("Main Course created")
+     Alert.alert("Obaveštenje","Kreirali ste jelo.");
      else
      {
       alert("Main course not created");
@@ -64,7 +70,7 @@ render() {
       <ScrollView contentContainerStyle={{ height:Dimensions.get('window').height*0.9}}>
 <ImageBackground source={require('../Images/marble.jpg')} style={{ display:'flex', flexDirection:'column',flex:1,width: '100%', height: '100%'}}>
      
-<View style={{backgroundColor:'white', display:'flex', flexDirection:'column',flex:1}}>
+<View style={{ display:'flex', flexDirection:'column',flex:1}}>
         <View style={{display:'flex', flexDirection:'row',flex:1,backgroundColor:'#fbb0a9'}}>
                 <View style={{display:'flex',flex:1,flexDirection:'row',alignContent:'center',justifyContent:'center',
               borderTopColor:'#fbb0a9',borderLeftColor:'#fbb0a9',borderRightColor:'#fbb0a9',borderTopLeftRadius:20,
@@ -74,7 +80,7 @@ render() {
                </View>
                <View style={{display:'flex',flex:1,flexDirection:'row',alignContent:'center',justifyContent:'center',
               borderTopColor:'#fbb0a9',borderLeftColor:'#fbb0a9',borderRightColor:'#fbb0a9',borderTopLeftRadius:20,
-              borderTopRightRadius:20,borderTopWidth:2,borderLeftWidth:2,borderRightWidth:2,backgroundColor:'white'}}>
+              borderTopRightRadius:20,borderTopWidth:2,borderLeftWidth:2,borderRightWidth:2,backgroundColor:'#F1F1F1'}}>
                <TouchableOpacity style={{display:'flex',flexDirection:'row',alignContent:'center',alignItems:'center'}}>
                   <Text style={{color:'black',fontSize:28,fontFamily:'cursive',fontWeight:'300'}}>Jelo</Text></TouchableOpacity>
                </View>
@@ -87,20 +93,20 @@ render() {
         </View>
   
   
-<View style={{display:'flex',flexDirection:'column',flex:10,backgroundColor:'white'}}>
+<View style={{display:'flex',flexDirection:'column',flex:10,}}>
     <View style={{flex:2.2,alignContent:'stretch',justifyContent:'center'}}><Text style={{fontFamily:'cursive',fontSize:33,color:'black'}}>Dodavanje jela</Text></View>
     <View style={{flex:10,display:'flex',flexDirection:'row'}}>
         <View style={{flex:0.5}}></View>
-        <View  style={{flex:8.5,display:'flex',flexDirection:'row',backgroundColor:'#49beb7',borderRadius:20,borderColor:'grey',borderWidth:1}}>
-          <View style={{flex:1}}></View>
+        <LinearGradient start={{x: 0, y: 0}} end={{x:0 , y: 1}} colors={['white','#F1F1F1']} style={{flex:1,flex:8.5,display:'flex',flexDirection:'row',borderRadius:20,borderColor:'grey',borderWidth:1}}>
+         <View style={{flex:1}}></View>
           <View style={{flex:4,display:'flex',flexDirection:'column'}}>
              <View style={{flex:3}}></View>
-             <TextInput placeholder="Ime jela" placeholderTextColor='white' onChangeText={this.onTextChangeName} style={{flex:1.5,borderBottomColor:'black',
+             <TextInput placeholder="Ime jela" placeholderTextColor='#fbb0a9' onChangeText={this.onTextChangeName} style={{flex:1.5,borderBottomColor:'black',
                               borderBottomWidth:2,shadowColor:'pink'}}></TextInput>
             <View style={{flex:2}}></View>
             <View style={{flex:1.5,flexDirection:'row',alignContent:'center'}}>
              <CheckBox value={this.state.cb} style={{color:'white'}} onChange={()=>this.cbChange()}/>
-             <Text style={{flexGrow:1,color:'white'}}>Vegeterijansko</Text>
+             <Text style={{flexGrow:1,color:'#fbb0a9',fontSize:20}}>Vegeterijansko</Text>
              </View>
              <View style={{flex:2}}></View>
              <Picker
@@ -117,13 +123,14 @@ render() {
 </Picker>
             <View style={{flex:2}}></View>
             <View style={{flex:1.5,display:'flex',flexDirection:'row',alignContent:'center',justifyContent:'center'}}>
-         <TouchableOpacity onPress={this.createStarter} style={{display:'flex',alignContent:'center',justifyContent:'center'}}><Text> Kreiraj jelo</Text></TouchableOpacity>
-         </View>
+              
+              <TouchableOpacity onPress={this.createStarter} style={{display:'flex',alignItems:'center',justifyContent:'center',borderRadius:25,backgroundColor:'#fbb0a9',flex:1}}><Text style={{fontSize:20}}> Kreiraj jelo</Text></TouchableOpacity>
+              </View>
          <View style={{flex:2}}></View>
           
        </View>
        <View style={{flex:1}}></View>
-       </View>
+       </LinearGradient>
        <View style={{flex:0.5}}></View>
    </View>
    <View style={{flex:0.5}}></View>

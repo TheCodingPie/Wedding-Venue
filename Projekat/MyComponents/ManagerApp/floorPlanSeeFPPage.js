@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { StyleSheet, Text, View,TextInput,Button,Dimensions } from 'react-native';
+import { StyleSheet, Text, View,TextInput,Button,Dimensions,Alert} from 'react-native';
 import styles from '../../styles'
 import Draggable from 'react-native-draggable';
 import Table from '../../Classes/classTable';
@@ -93,7 +93,7 @@ export default class floorPlanSeeFPPageScreen extends React.Component {//ZA NOVU
   fetch(FetchConstants.url+"/Manager.php",fetchData)
   .then((response)=>response.json())
   .then((response)=>{
-   alert(response);
+   Alert.alert("Obaveštenje","Sačuvali ste raspored.");
   })
   .catch((error)=>{alert(error);});
  }
@@ -238,7 +238,7 @@ export default class floorPlanSeeFPPageScreen extends React.Component {//ZA NOVU
         return(
           
         <View style={{backgroundColor: 'white', flex: 1}} >
-          <TouchableOpacity onPress={()=>this.saveAllTables(tables[0],0)}><Text>Sacuvaj sve</Text></TouchableOpacity>
+          <TouchableOpacity s onPress={()=>this.saveAllTables(tables[0],0)}><Text style={{color:'#fbb0a9'}}>Sacuvaj sve</Text></TouchableOpacity>
           {this.state.stageAndWeddtable}
          {this.state.tr}
         

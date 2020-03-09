@@ -1,7 +1,7 @@
 import RNSmtpMailer from "react-native-smtp-mailer";
 
 export default class EMail {
-  static send=(email,sifra)=>{
+  static send=(email,sifra,poruka)=>{
     RNSmtpMailer.sendMail({
       mailhost: "smtp.gmail.com",
       port: "465",
@@ -11,12 +11,11 @@ export default class EMail {
       from: "jovananikolicdd98@gmail.com",
       recipients: email,
       subject: "Restoran je kreirao Vas profil",
-      htmlBody: "<h1>Vas profil je konobar</h1><p>Vasa sifra je "+sifra+"</p> <p>@SJP Team</p>",
+      htmlBody: "<h1>Vas profil je: "+poruka+"</h1><p>Vasa sifra je "+sifra+"</p><p>@SJP Team</p>",
       attachmentPaths: [],
       attachmentNames: [],
       attachmentTypes: []
     }).then(success => {
-  alert('lala');
   })
     .catch(err => alert(err));
   

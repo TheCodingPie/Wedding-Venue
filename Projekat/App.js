@@ -3,7 +3,7 @@ import React from 'react';
 import signOut from './MyComponents//WaiterApp/thirdPageWaiterApp';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 //import {createDrawerNavigator,DrawerItems,SafeAreaView} from 'react-navigation';
-import {View,ScrollView,Dimensions,Text,Image, ImageBackground,TouchableOpacity,AsyncStorage} from'react-native';
+import {View,ScrollView,Dimensions,Text,Image, ImageBackground,TouchableOpacity,AsyncStorage,YellowBox} from'react-native';
 import { createDrawerNavigator, DrawerItems, SafeAreaView } from 'react-navigation'
 import ImageResizeMode from 'react-native/Libraries/Image/ImageResizeMode'
 import firebase from'react-native-firebase';
@@ -706,6 +706,7 @@ export default class App extends React.Component {
   
   
  render() {
+  console.disableYellowBox = true;
         return (
           <PaperProvider>
           <MyAppContainer />

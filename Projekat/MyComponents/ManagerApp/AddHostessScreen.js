@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View,TextInput,Button,ScrollView,Dimensions,ImageBackground,TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View,TextInput,Button,ScrollView,Dimensions,ImageBackground,TouchableOpacity,Alert } from 'react-native';
 import {Header,Left,Icon, DatePicker} from 'native-base';
 import styles from '../../styles'
 import stylesAppFirstPage from '../stylesAppFirstPage';
@@ -22,10 +22,34 @@ export default class AddHostessScreen extends React.Component {
   handleTextChangeName=(newText)=>this.setState({name:newText});
   handleTextChangeDateAndTime=(newText)=>this.setState({dateAndTime:newText});
 createHostess=()=>{
+  if(this.state.email.indexOf("@gmail.com")==-1)
+  {
+    Alert.alert("Obaveštenje","Unesite validan gmail.");
+    this.setState({dateAndTime:"",
+    name:"",
+  
+    email:"",
+    
+    })
+    return;
+  }
+  if( this.state.name==""|| this.state.email=="" )
+  {
+    Alert.alert("Obaveštenje","Proverite unete podatke.");
+    this.setState({dateAndTime:"",
+  name:"",
+
+  email:"",
+  
+  })
+    return;
+  }
+
+  let pass=this.createPassword()
   const formData=new FormData();
   formData.append("createHostess",1);
   formData.append("email",this.state.email);
-  formData.append("password",this.createPassword());
+  formData.append("password",pass);
   formData.append("name",this.state.name);
   formData.append("restaurantId",this.props.navigation.getParam('restaurantId',1111));
 
@@ -38,11 +62,18 @@ createHostess=()=>{
   .then((response)=>response.json())
   .then((response)=>{
    if(response==null)
-   alert("Hostess not added please check your data");
+   Alert.alert("Obaveštenje","Proverite podatke.");
    else
    {
-    alert(response);
+    Alert.alert("Obaveštenje","Kreirali ste hostesu.");
+    EMail.send(this.state.email,pass,"Hostesa");
    }
+   this.setState({dateAndTime:"",
+   name:"",
+ 
+   email:"",
+   
+   })
   })
   .catch((error)=>{alert(error);});
 }
@@ -84,14 +115,14 @@ render() {
          <View style={{flex:1}}></View>
          <View style={{flexDirection:'row', display:'flex',alignItems:'center',justifyContent:'center'}}>
          <View style={{flex:0.3}}></View>
-           <TextInput placeholder='Hostesa email' style={{flex:1.5,borderBottomColor:'black',borderBottomWidth:2,shadowColor:'pink'}} placeholderTextColor='#fbb0a9' onChangeText={this.handleTextChangeId}></TextInput>
+           <TextInput placeholder='Hostesa email' value={this.state.email} style={{flex:1.5,borderBottomColor:'black',borderBottomWidth:2,shadowColor:'pink'}} placeholderTextColor='#fbb0a9' onChangeText={this.handleTextChangeId}></TextInput>
            <View style={{flex:0.3}}></View>
          </View>
            <View style={{flex:1}}></View>
            <View style={{flexDirection:'row',display:'flex',alignItems:'center',justifyContent:'center'}}>
            <View style={{flex:0.3}}></View>
           
-           <TextInput placeholder='Hostesa ime' style={{flex:1.5,borderBottomColor:'black',borderBottomWidth:2,shadowColor:'pink'}}  placeholderTextColor='#fbb0a9' onChangeText={this.handleTextChangeName}></TextInput>
+           <TextInput placeholder='Hostesa ime' value={this.state.name} style={{flex:1.5,borderBottomColor:'black',borderBottomWidth:2,shadowColor:'pink'}}  placeholderTextColor='#fbb0a9' onChangeText={this.handleTextChangeName}></TextInput>
          
            <View style={{flex:0.3}}></View>
            </View>
@@ -100,7 +131,7 @@ render() {
            <View style={{flex:0.4}}></View>
            <View style={{flex:1,flexDirection:'row'}}>
            <View style={{flex:0.3,flexDirection:'row'}}></View>
-           <View style={{flex:1.5}}><TouchableOpacity style={{flex:1,flexDirection:"column",borderRadius:30, alignItems:'center',justifyContent:'center',backgroundColor:'#fbb0a9'}} onPress={this.createHostess}><Text style={{color:'white'}}>Kreiraj hostesu</Text></TouchableOpacity></View>
+           <View style={{flex:1.5}}><TouchableOpacity style={{flex:1,flexDirection:"column",borderRadius:30, alignItems:'center',justifyContent:'center',backgroundColor:'#fbb0a9'}} onPress={this.createHostess}><Text style={{color:'white',fontSize:20}}>Kreiraj hostesu</Text></TouchableOpacity></View>
            <View style={{flex:0.3,flexDirection:'row'}}></View>
            </View>
       <View style={{flex:0.7}}></View>

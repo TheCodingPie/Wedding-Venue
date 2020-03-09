@@ -3,7 +3,7 @@ import React from 'react';
 
 import FetchConstants from '../../Classes/fetchConstants';
 
-import { StyleSheet, Text, View,TextInput,Button,TouchableOpacity,Image,Picker ,ImageBackground,Dimensions} from 'react-native';
+import { StyleSheet, Text, View,TextInput,Button,TouchableOpacity,Image,Picker ,ImageBackground,Dimensions,Alert} from 'react-native';
 
 import LinearGradient from 'react-native-linear-gradient';
 import { ScrollView } from 'react-native-gesture-handler';
@@ -24,7 +24,7 @@ export default class UpdateMenuScreenJelo extends React.Component {
        opacity:0
 
          }
-         cb=false;
+         cb=true;
          this.returnJela();
 
     }
@@ -64,14 +64,14 @@ export default class UpdateMenuScreenJelo extends React.Component {
       method:"post",
       body:formData
     };
-    alert(this.state.toChange+" "+this.state.vegeterian+" "+this.state.tipMenija);
+   // alert(this.state.toChange+" "+this.state.vegeterian+" "+this.state.tipMenija);
     fetch( FetchConstants.url+"/Manager.php",fetchData)
     .then((response)=>response.json())
     .then((response)=>{
      if(response==true)
-     alert("Jelo je izmenjeno");
+     Alert.alert("Obaveštenje","Izmenili ste jelo.");
      else
-     alert("Jelo nije izmenjeno");
+     Alert.alert("Obaveštenje","Niste izmenili jelo.");
     })
     .catch((error)=>{alert(error);});
    }
@@ -115,10 +115,10 @@ render() {
         
         
       <View style={{display:'flex',flexDirection:'column',flex:10}}>
-          <View style={{flex:1.5,alignContent:'stretch',justifyContent:'center'}}><Text style={{fontFamily:'cursive',fontSize:33,color:'black'}}>Izmena jela</Text></View>
+          <View style={{flex:2.2,alignContent:'stretch',justifyContent:'center'}}><Text style={{fontFamily:'cursive',fontSize:33,color:'black'}}>Izmena jela</Text></View>
           <View style={{flex:10,display:'flex',flexDirection:'row'}}>
               <View style={{flex:0.5}}></View>
-              <LinearGradient start={{x: 0, y: 0}} end={{x:0 , y: 1}} colors={['white','#F1F1F1']} style={{flex:1,flex:8.5,display:'flex',flexDirection:'row',borderRadius:20,borderColor:'grey',borderWidth:1}}>
+              <LinearGradient start={{x: 0, y: 0}} end={{x:0 , y: 1}} colors={['white','#F1F1F1']} style={{flex:1,flex:8.5,display:'flex',flexDirection:'row',borderRadius:20,borderColor:'white',shadowOffset:{width:2,height:4},shadowOpacity:0.8,shadowRadius:2,elevation:5,shadowColor:'#000'}}>
                 <View style={{flex:1}}></View>
                 <View style={{flex:4,display:'flex',flexDirection:'column'}}>
                    <View style={{flex:3}}></View>
@@ -169,7 +169,7 @@ onValueChange={(itemValue, itemIndex) => this.pickerChange(itemIndex)}>{
              </LinearGradient>
              <View style={{flex:0.5}}></View>
          </View>
-         <View style={{flex:1.3}}></View>
+         <View style={{flex:0.5}}></View>
       </View>
       </ImageBackground>
       </ScrollView>

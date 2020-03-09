@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View,TextInput,Button } from 'react-native';
+import { StyleSheet, Text, View,TextInput,Button,AsyncStorage } from 'react-native';
 import {createSwitchNavigator,createAppContainer} from 'react-navigation';
 import styles from '../../styles';
 import { TouchableOpacity } from 'react-native-gesture-handler';
@@ -31,15 +31,28 @@ export default class kreirajRasporedScreen extends React.Component {
          weddingId:1,
          tablespom:[],
          porodice:[],
+         newlyweds:null
          }
+         this.loadData();
          this.vratiStolove();
         this.returnFamilies();
 
     }
+    loadData = async() =>{
+      var response;
+      try {
+      AsyncStorage.getItem('newlyweds').then( (storeString)=>{
+     
+         this.setState({newlyweds:JSON.parse(storeString)});
+         //alert(newlyweds.id);
+        })
+      
+    }catch (error) { }
+  }
 returnFamilies=()=>{
   const formData=new FormData();
   formData.append("returnFamilies",1);
-  formData.append("weddingId",this.state.weddingId);
+  formData.append("weddingId",this.state.newlyweds.idWedding);
   const fetchData={
     method:"post",
     body:formData
@@ -95,12 +108,27 @@ praviRaspored=()=>{
    
       por++;
     }
-    
+    this.clearFamilies();
     this.setState({porodice:porodice});
     this.state.porodice.forEach((x)=>{
       this.updateTableFamily(x.id,x.idTable);
     })
     
+}
+clearFamilies=()=>{
+  const formData=new FormData();
+  formData.append("clearTableFamily",1);
+  formData.append("id",this.state.newlyweds.idWedding);
+  const fetchData={
+    method:"post",
+    body:formData
+  };
+  fetch( FetchConstants.url+"/BrideAndGroom.php",fetchData)
+  .then((response)=>response.json())
+  .then((response)=>{
+
+   })
+  .catch((error)=>{alert(error);});
 }
  updateTableFamily=(id,idTable)=>{
   const formData=new FormData();

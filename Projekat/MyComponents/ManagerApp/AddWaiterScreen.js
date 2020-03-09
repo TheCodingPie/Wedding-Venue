@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View,TextInput,Button,ScrollView,Dimensions,ImageBackground ,TouchableOpacity} from 'react-native';
+import { StyleSheet, Text, View,TextInput,Button,ScrollView,Dimensions,ImageBackground ,TouchableOpacity,Alert} from 'react-native';
 import {Header,Left,Icon, DatePicker} from 'native-base';
 import styles from '../../styles'
 import stylesAppFirstPage from '../stylesAppFirstPage';
@@ -25,6 +25,28 @@ export default class AddWaiterScreen extends React.Component {
   handleTextChangeName=(newText)=>this.setState({name:newText});
   handleTextChangeDateAndTime=(newText)=>this.setState({dateAndTime:newText});
 createHostess=()=>{
+  if(this.state.email.indexOf("@gmail.com")==-1)
+  {
+    Alert.alert("Obaveštenje","Unesite validan gmail.");
+    this.setState({dateAndTime:"",
+    name:"",
+  
+    email:"",
+    
+    })
+    return;
+  }
+  if( this.state.name==""|| this.state.email=="" )
+  {
+    Alert.alert("Obaveštenje","Proverite unete podatke.");
+    this.setState({dateAndTime:"",
+  name:"",
+
+  email:"",
+  
+  })
+    return;
+  }
   let pass=this.createPassword()
   const formData=new FormData();
   formData.append("createWaiter",1);
@@ -44,14 +66,20 @@ createHostess=()=>{
   .then((response)=>response.json())
   .then((response)=>{
    if(response==null)
-   alert("Waiter not added please check your data");
+   Alert.alert("Obaveštenje","Proverite podatke.");
    else
    {
      
-    alert(response);
+    Alert.alert("Obaveštenje","Kreirali ste konobara.");
     this.sendData(response);
-    EMail.send(this.state.email,pass);
+    EMail.send(this.state.email,pass,"konobar");
    }
+   this.setState({dateAndTime:"",
+  name:"",
+
+  email:"",
+  
+  })
   })
   .catch((error)=>{alert(error);});
 }
@@ -102,14 +130,14 @@ sendData(response) {
          <View style={{flex:1}}></View>
          <View style={{flexDirection:'row', display:'flex',alignItems:'center',justifyContent:'center'}}>
          <View style={{flex:0.3}}></View>
-           <TextInput placeholder='Konobar email' style={{flex:1.5,borderBottomColor:'black',borderBottomWidth:2,shadowColor:'pink'}} placeholderTextColor='#fbb0a9' onChangeText={this.handleTextChangeId}></TextInput>
+           <TextInput placeholder='Konobar email'  value={this.state.email} style={{flex:1.5,borderBottomColor:'black',borderBottomWidth:2,shadowColor:'pink'}} placeholderTextColor='#fbb0a9' onChangeText={this.handleTextChangeId}></TextInput>
            <View style={{flex:0.3}}></View>
          </View>
            <View style={{flex:1}}></View>
            <View style={{flexDirection:'row',display:'flex',alignItems:'center',justifyContent:'center'}}>
            <View style={{flex:0.3}}></View>
           
-           <TextInput placeholder='Konobar ime' style={{flex:1.5,borderBottomColor:'black',borderBottomWidth:2,shadowColor:'pink'}}  placeholderTextColor='#fbb0a9' onChangeText={this.handleTextChangeName}></TextInput>
+           <TextInput placeholder='Konobar ime'  value={this.state.name} style={{flex:1.5,borderBottomColor:'black',borderBottomWidth:2,shadowColor:'pink'}}  placeholderTextColor='#fbb0a9' onChangeText={this.handleTextChangeName}></TextInput>
          
            <View style={{flex:0.3}}></View>
            </View>
@@ -119,7 +147,7 @@ sendData(response) {
            <View  style={{flex: 1}}>
            <View style={{flex:1,flexDirection:'row'}}>
            <View style={{flex:0.3,flexDirection:'row'}}></View>
-           <View style={{flex:1.5}}><TouchableOpacity style={{flex:1,flexDirection:"column",borderRadius:30, alignItems:'center',justifyContent:'center',backgroundColor:'#fbb0a9'}} onPress={this.createHostess}><Text style={{color:'white'}}>Kreiraj konobara</Text></TouchableOpacity></View>
+           <View style={{flex:1.5}}><TouchableOpacity style={{flex:1,flexDirection:"column",borderRadius:30, alignItems:'center',justifyContent:'center',backgroundColor:'#fbb0a9'}} onPress={this.createHostess}><Text style={{color:'white',fontSize:20}}>Kreiraj konobara</Text></TouchableOpacity></View>
            <View style={{flex:0.3,flexDirection:'row'}}></View>
            </View>
       </View>

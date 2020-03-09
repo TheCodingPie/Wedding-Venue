@@ -65,7 +65,7 @@ export default class FreeDaysScreen extends React.Component {
       })
       .catch((error)=>{alert(error);});
 }
-
+/*
    onPressDate(day)
   {
     markedDates.push(day);
@@ -77,7 +77,7 @@ export default class FreeDaysScreen extends React.Component {
           marked: true
         }
       };
-    });  */
+    });  *
     newDaysObject = {
       ...newDaysObject,
       [day]: {
@@ -87,7 +87,7 @@ export default class FreeDaysScreen extends React.Component {
 
     this.setState({ markedD: newDaysObject});
 
-  }
+}*/
   
    render() {  
 
@@ -114,7 +114,7 @@ export default class FreeDaysScreen extends React.Component {
        pastScrollRange={1}
       futureScrollRange={24}
        scrollEnabled={true}
-      onDayPress={(day)=>{this.onPressDate(day.dateString)}}
+     // onDayPress={(day)=>{this.onPressDate(day.dateString)}}
       markedDates={this.state.markedD}
       theme={{
         calendarBackground: 'white',

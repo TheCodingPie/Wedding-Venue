@@ -115,15 +115,15 @@ export default class ThirdPageScreenUserApp extends React.Component {
       if(this.state.mainCourse==null)
       {
           return (
-            <LinearGradient   colors={['#FFDEC3','#FFCCB4','#FFB7AA']} style={{flex:1}}>
+          
          <View style={{flex:1, alingItems:'center', justifyContent:'center'}}>
            <View style={{flex:0.2}}></View>
             <View  style={{flex:4,  flexDirection:'row'}}>
-                <View style={{flex:0.1}}></View>
+                <View style={{flex:0.3}}></View>
     
-                 <View style={{flex:3,borderRadius:20,alingItems:'center',justifyContent:'center', backgroundColor:'white', borderColor:'#D98292',borderWidth: 1,shadowOffset:{width:2,height:4},shadowOpacity:0.8,shadowRadius:2,elevation:5,shadowColor:'#000' }}>
-                  <View style={{flex:0.17,display:'flex',alignItems:'center',justifyContent:'center',backgroundColor:'#FFF9D2',borderTopStartRadius:20}}>
-                    <Text style={{fontFamily:'news701i',fontSize:25}}>Izaberite jelo</Text>
+                 <View style={{flex:4,borderRadius:20,alingItems:'center',justifyContent:'center', backgroundColor:'#F1f1f1',shadowOffset:{width:2,height:4},shadowOpacity:0.8,shadowRadius:2,elevation:5,shadowColor:'#000' }}>
+                  <View style={{flex:0.17,display:'flex',alignItems:'center',justifyContent:'center',borderTopStartRadius:20}}>
+                    <Text style={{fontFamily:'news701i',fontSize:25,color:'#49beb7'}}>Izaberite jelo</Text>
                   </View>
                   <View style={{flex:1}}>
                   <ScrollView >
@@ -133,21 +133,24 @@ export default class ThirdPageScreenUserApp extends React.Component {
       
       <ListItem
     
-      
+      containerStyle={{backgroundColor:'#f1f1f1'}}
 
 
      title={
-      <LinearGradient start={{x: 0, y: 0}} end={{x: 1, y: 0}} colors={['#D97E7E','#F29979','#FFDEC3']} style={{width:'100%',borderRadius:40,height:65}}>
+      <LinearGradient start={{x: 0, y: 0}} end={{x: 1.3, y: 0}} colors={['#fbb0a9','white','white']} style={{width:'100%',borderRadius:40,height:65}}>
        <View style={{flex:1,flexDirection:'row',alignItems:'center',justifyContent:'center',display:'flex',borderRadius:40,height:65,width:'100%'}}>
-         <View style={{flex:1,justifyContent:'center',display:'flex'}}>
-       <Text>{element}</Text>
+         <View style={{flex:1,justifyContent:'center',display:'flex',flexDirection:'row'}}>
+           <View style={{flex:0.1}}></View>
+           <View style={{flex:0.8}}>
+       <Text style={{color:'#49beb7',fontFamily:'news701i',fontSize:16}}>{element}</Text>
+       </View>
        </View>
        <View style={{flex:1,flexDirection:'row-reverse'}}>
        <Button
         onPress={() =>this.showDialog(element)}
         title='Izaberite'
-       buttonStyle={{height: 40, width: 80, borderRadius: 30,backgroundColor:'#A64E6E',marginRight:10}}
-       
+       buttonStyle={{height: 40, width: 100, borderRadius: 30,backgroundColor:'#fbb0a9',marginRight:10,}}
+       titleStyle={{fontFamily:'news701i',fontSize:15 }}
      /></View>
        </View>
        </LinearGradient>}
@@ -164,7 +167,7 @@ export default class ThirdPageScreenUserApp extends React.Component {
                    </View>
     
                  </View>
-                 <View style={{flex:0.1}}></View>
+                 <View style={{flex:0.3}}></View>
           </View>
           <View style={{flex:0.3}}></View>
     
@@ -184,7 +187,7 @@ export default class ThirdPageScreenUserApp extends React.Component {
             </Portal>
            </View>
     
-           </LinearGradient>
+          
           );
       }else{
       
@@ -192,17 +195,17 @@ export default class ThirdPageScreenUserApp extends React.Component {
           <View style={{flex:1,alignItems:'center',justifyContent:'center'}}>
           <View style={{flex:0.2}}></View>
           <View style={{flex:1,alignItems:'center',justifyContent:'center'}}>
-            <Text style={{fontFamily:'news701i',fontSize:22}}>Već ste izabrali glavno jelo.</Text>
+            <Text style={{fontFamily:'news701i',fontSize:22 ,color:'#49beb7'}}>Već ste izabrali glavno jelo.</Text>
    
           </View>
           <View style={{flex:1, flexDirection:'row'}}>
        <View style={{flex:0.1}}></View>
        <View style={{flex:0.8}}>
        <View style={{flex:0.4}}></View>
-         <View style={{flex:0.6 ,backgroundColor:'yellow',borderRadius:30}}>
+         <View style={{flex:0.6 ,backgroundColor:'#fbb0a9',borderRadius:30}}>
 
            <TouchableOpacity style={{display:'flex',flex:1,alignItems:'center',justifyContent:'center'}} onPress={() => this.props.navigation.navigate('menuPage')}>
-             <Text style={{fontFamily:'news701i',fontSize:16}}>Nazad na početnu.</Text>
+             <Text style={{fontFamily:'news701i',fontSize:16,color:'white'}}>Nazad na početnu.</Text>
            </TouchableOpacity>
          </View>
          <View style={{flex:1}}></View>
@@ -220,17 +223,17 @@ export default class ThirdPageScreenUserApp extends React.Component {
         <View style={{flex:1,alignItems:'center',justifyContent:'center'}}>
         <View style={{flex:0.2}}></View>
         <View style={{flex:1,alignItems:'center',justifyContent:'center'}}>
-          <Text style={{fontFamily:'news701i',fontSize:18,alignItems:'center'}}>Žao nam je,</Text> 
-         <Text style={{fontFamily:'news701i',fontSize:16,alignItems:'center'}}> Vi ste otkazali dolazak na venčanje.</Text>
+          <Text style={{fontFamily:'news701i',fontSize:18,alignItems:'center', color:'#49beb7'}}>Žao nam je,</Text> 
+         <Text style={{fontFamily:'news701i',fontSize:16,alignItems:'center', color:'#49beb7'}}> Vi ste otkazali dolazak na venčanje.</Text>
         </View>
         <View style={{flex:1, flexDirection:'row'}}>
      <View style={{flex:0.1}}></View>
      <View style={{flex:0.8}}>
      <View style={{flex:0.4}}></View>
-       <View style={{flex:0.6 ,backgroundColor:'yellow',borderRadius:30}}>
+       <View style={{flex:0.6, backgroundColor:'#fbb0a9',borderRadius:30}}>
 
          <TouchableOpacity style={{display:'flex',flex:1,alignItems:'center',justifyContent:'center'}} onPress={() => this.props.navigation.navigate('zaKocke')}>
-           <Text style={{fontFamily:'news701i',fontSize:16}}>Nazad na početnu.</Text>
+           <Text style={{fontFamily:'news701i',fontSize:16,color:'white'}}>Nazad na početnu.</Text>
          </TouchableOpacity>
        </View>
        <View style={{flex:1}}></View>

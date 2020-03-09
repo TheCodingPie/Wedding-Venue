@@ -3,7 +3,7 @@ import React from 'react';
 
 import FetchConstants from '../../Classes/fetchConstants';
 
-import { StyleSheet, Text, View,TextInput,Button,TouchableOpacity,CheckBox,Picker ,ImageBackground,Dimensions,Image} from 'react-native';
+import { StyleSheet, Text, View,TextInput,Button,TouchableOpacity,CheckBox,Picker ,ImageBackground,Dimensions,Image,Alert} from 'react-native';
 
 import LinearGradient from 'react-native-linear-gradient';
 import { ScrollView } from 'react-native-gesture-handler';
@@ -24,7 +24,7 @@ export default class UpdateMenuScreen extends React.Component {
         opacity:0
         
          }
-         cb=false;
+         cb=true;
  
 this.returnStarters();
     }
@@ -54,9 +54,9 @@ this.returnStarters();
       .then((response)=>response.json())
       .then((response)=>{
        if(response==true)
-       alert("Predjelo je izmenjeno");
+       Alert.alert("Obaveštenje","Izmenili ste predjelo.");
        else
-       alert("Predjelo nije izmenjeno");
+       Alert.alert("Obaveštenje","Niste izmenili ste predjelo.");
       })
       .catch((error)=>{alert(error);});
     }
@@ -88,7 +88,7 @@ this.returnStarters();
   };
 render() {
     return (
-      <ScrollView contentContainerStyle={{ height:Dimensions.get('window').height*0.9}}>
+      <ScrollView contentContainerStyle={{ height:Dimensions.get('window').height*0.95}}>
       <ImageBackground source={require('../Images/marble.jpg')} style={{ display:'flex', flexDirection:'column',flex:1,width: '100%', height: '100%'}}>
               <View style={{display:'flex', flexDirection:'row',flex:1,backgroundColor:'#fbb0a9'}}>
                       <View  style={{display:'flex',flex:1,flexDirection:'row',alignContent:'center',justifyContent:'center',

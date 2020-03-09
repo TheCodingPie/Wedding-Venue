@@ -11,8 +11,11 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
     
     this.state = {
       totalDuration: 100000,
-      //newlyweds:this.props.navigation.state.params.newlyweds,
       newlyweds:null,
+      nameBride:"",
+      nameGroom:"",
+      lastname:"",
+     
 
     };
     this.loadData();
@@ -29,8 +32,10 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
     try {
     AsyncStorage.getItem('newlyweds').then( (storeString)=>{
    
-       this.setState({newlyweds:JSON.parse(storeString)})
-       //alert(newlyweds.id);
+       this.setState({newlyweds:JSON.parse(storeString)});
+       this.setState({nameBride:this.state.newlyweds.nameBride, nameGroom:this.state.newlyweds.nameGroom,lastname:this.state.newlyweds.lastname});
+       this.funkcija();
+     
       })
     
   }catch (error) { }
@@ -38,15 +43,14 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 
     
   
-  componentDidMount=()=> {
+ funkcija=()=> {
   
-    
     var date = moment()
       .utcOffset('+05:30')
       .format('YYYY-MM-DD hh:mm:ss');
     //Getting the current date-time with required formate and UTC   
    // var expirydate = this.state.newlyweds.date+' 04:00:45';// OVDE TREBA DA SE STAVI VREME SVADBE NA OSNOVU this.props.navigation.state.params.wedid
-   var expirydate = '2019-08-23 04:00:45';
+   var expirydate = ''+this.state.newlyweds.date+' 14:00:00';//2019-08-23 04:00:45';
    //Let suppose we have to show the countdown for above date-time 
     var diffr = moment.duration(moment(expirydate).diff(moment(date)));
     //difference of the expiry date-time given and current date-time
@@ -58,6 +62,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
     this.setState({ totalDuration: d });
     
   }
+
   render() {
     console.log(this.state.totalDuration);
     return (
@@ -67,23 +72,35 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
      
        
      <Icon name='menu' onPress={()=>this.props.navigation.openDrawer()} size={10} style={{ left: 10,position: 'absolute',flex:1}}/>
-   
+  
     
      </Header>
-     
-     <View style={{ flex: 1,justifyContent:'center' }}>
-        <CountDown
+
+     <View style={{flex:3,justifyContent:'center',alignItems:'center'}}>
+       <Text style={{fontSize:40,fontFamily:'news701i',color:'#49beb7'}}> Dobrodošli </Text>
+       <Text style={{fontSize:30,fontFamily:'news701i',color:'#49beb7'}}>{this.state.nameGroom}  i {this.state.nameBride}</Text>
+       <Text  style={{fontSize:30,fontFamily:'news701i',color:'#49beb7'}}> {this.state.lastname}</Text>
+     </View>
+     <View style={{flex:1}}></View>
+     <View style={{flex: 4,flexDirection:'row'}}>
+     <View style={{flex:1}}></View>
+     <View style={{ flex: 5,justifyContent:'center',flexDirection:'row',marginLeft:30,marginRight:30 }}>
+        <CountDown style={{flex:1}}
           until={this.state.totalDuration}
           
           timetoShow={('H', 'M', 'S')}
-         
+          digitTxtStyle={{color:'white'}}
+          timeLabelStyle={{color:'#49beb7',fontFamily:'news701i',fontSize:14}}
+          size={35}
           onPress={() => alert('Jos ovoliko do vencanja')}
       
-          size={40}
           digitStyle={{backgroundColor:'#fbb0a9'}}
          timeLabels={{d:'Dana',h:'Sati',m: 'Minuta', s: 'Sekunde'}}
-        /><TouchableOpacity onPress={()=>{alert(this.state.newlyweds.id)}}><Text>Klikniii</Text></TouchableOpacity>
+        />
          </View>
+         <View style={{flex:1}}></View>
+         </View>
+         <View style={{flex:1,justifyContent:'center'}}></View>
       </View>
     );
   }

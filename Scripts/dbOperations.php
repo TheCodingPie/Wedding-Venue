@@ -22,7 +22,7 @@ class DbOperation{
     }
     function validateManager($code,$restaurantId)
     {
-		$la="SELECT * FROM `manager` where password='$code' and Restaurant_idRestaurant=$restaurantId";
+		$la="SELECT * FROM `manager` where password='$code' and uniqueId='$restaurantId'";
         $res=$this->con->query($la) or die($this->con->error);
 		$row=$res->fetch_assoc();
 		$res->close();
@@ -148,7 +148,7 @@ class DbOperation{
 	}
 	  function validateHostess($password,$name)
     {
-		$la="SELECT * FROM `hostess` where password='$password' and name='$name';";
+		$la="SELECT * FROM `hostess` where password='$password' and email='$name';";
         $res=$this->con->query($la);
         $row=$res->fetch_assoc();
 		$res->close();
@@ -157,7 +157,7 @@ class DbOperation{
     }
 	  function validateNewlyweds($password,$email)
     {
-		$la="SELECT idBrideAndGroom,nameBride,nameGroom,lastname,email,wedding.date,idWedding FROM `brideandgroom` INNER JOIN wedding on brideandgroom.idBrideAndGroom=wedding.BrideAndGroom_idBrideAndGroom  WHERE brideandgroom.PASSWORD='$password' and email='$email'";
+		$la="SELECT idBrideAndGroom,nameBride,nameGroom,lastname,email,wedding.date,idWedding FROM `brideandgroom` INNER JOIN wedding on brideandgroom.idBrideAndGroom=wedding.BrideAndGroom_idBrideAndGroom  WHERE wedding.PASSWORD='$password' and email='$email'";
         $res=$this->con->query($la);
         $row=$res->fetch_assoc();
         if($row)
@@ -190,7 +190,7 @@ class DbOperation{
 	}
 	function validateWaiter($password,$name)
     {
-		$la="SELECT * FROM `waiter` where password='$password' and name='$name';";
+		$la="SELECT * FROM `waiter` where password='$password' and email='$name';";
         $res=$this->con->query($la);
         $row=$res->fetch_assoc();
         $rez=$row['idWaiter'];
@@ -264,7 +264,7 @@ class DbOperation{
 	}
 	function returnFamiliesAtTable($idWedding)
 	{
-	  $la="select name,lastname,numberTable,idTable,id,coming FROM(SELECT name,lastname,Wedding_idWedding as wedid,Tables_has_Wedding_Tables_idTable as idTable,id,member.coming from member INNER JOIN family on member.FamilyMemberId=family.id AND family.Wedding_idWedding=member.Family_Wedding_idWedding where family.Wedding_idWedding=$idWedding) AS x INNER JOIN tables_has_wedding on x.idTable=tables_has_wedding.Tables_idTable and x.wedid=tables_has_wedding.Wedding_idWedding ";
+	  $la="select name,lastname,numberTable,idTable,id,coming FROM(SELECT name,lastname,Wedding_idWedding as wedid,Tables_has_Wedding_Tables_idTable as idTable,id,member.coming from member INNER JOIN family on member.FamilyMemberId=family.id AND family.Wedding_idWedding=member.Family_Wedding_idWedding where family.Wedding_idWedding=$idWedding and member.coming=1) AS x INNER JOIN tables_has_wedding on x.idTable=tables_has_wedding.Tables_idTable and x.wedid=tables_has_wedding.Wedding_idWedding ";
 	 $res=$this->con->query($la);
 	 if($res){
 	    $tables=array();
@@ -313,13 +313,42 @@ class DbOperation{
 		$res->close();
         return $r;
      }
-    return $row;
+    else{
+		$la="SELECT * from (SELECT idMember,email,name,member.coming,MainCourse_name,Desert_name,Starter_name,Family_Wedding_idWedding,FamilyMemberId,family.guestType,family.Tables_has_Wedding_Tables_idTable FROM `member` INNER JOIN family on member.FamilyMemberId=family.id WHERE password='$password' AND email='$email') as tra INNER JOIN wedding on 	Family_Wedding_idWedding=wedding.idWedding ";
+
+		$res=$this->con->query($la);
+		$row=$res->fetch_assoc();
+		if($row)
+		{
+			$r=new classMember($row['idMember'],$row['email'],$row['name'],$row['coming'],$row['Starter_name'],$row['MainCourse_name'],$row['Desert_name'],$row['Family_Wedding_idWedding'],$row['FamilyMemberId'],NULL,NULL,$row['guestType'],$row['priceRange'],$row['date']);
+		    return $r;
+		}
+		return $row;
+	}
      }
 	function ComingOrNot($coming,$idMember,$wedid)
 	{
-	   $la="UPDATE `member` SET `coming`=$coming WHERE idMember=$idMember AND Family_Wedding_idWedding=$wedid";
-        $res=$this->con->query($la);
-		return  $res;
+		$la="UPDATE `member` SET `coming`=$coming WHERE idMember=$idMember AND Family_Wedding_idWedding=$wedid";
+		$res=$this->con->query($la);
+		$la="SELECT * from `member`  WHERE idMember=$idMember";
+		$res=$this->con->query($la);
+		$row=$res->fetch_assoc();
+		$fam=$row['FamilyMemberId'];
+		$la="select * from `family`  WHERE id=$fam";
+		$res=$this->con->query($la);
+		$row=$res->fetch_assoc();
+		$r=$row["coming"];
+		$pom=null;
+		if($coming)
+		$pom=1;
+		else
+		$pom=-1;
+		$r=$r+$pom;
+		if($r<0)
+		$r=0;
+		$la="UPDATE family set coming=$r where id=$fam";
+		$res=$this->con->query($la);
+		return $r;
 	}
 	function returnStarters($priceRange)
 	{
@@ -397,10 +426,14 @@ class DbOperation{
 	{
 		$la="SELECT idWedding FROM wedding where wedding.date='$date'";
         $res=$this->con->query($la);
-        $row=$res->fetch_assoc();
+		$row=$res->fetch_assoc();
+		if($row)
+		{
 		$r=$row['idWedding'];
 		$res->close();
-        return $r;
+		return $r;
+		}
+		return null;
 	}
 	function findTableNum($id,$weddingId)
 	{
@@ -494,6 +527,12 @@ class DbOperation{
         $res=$this->con->query($la);
 		return  $res;
 	}
+	function clearTableFamily($id)
+	{
+ 		$la="UPDATE `family` SET `Tables_has_Wedding_Tables_idTable`=NULL where Wedding_idWedding=$id";
+        $res=$this->con->query($la);
+		return  $res;
+	}
 	function saveGuest($email,$name,$idWedding,$familyId,$pass)
 	{
 		 $la="INSERT INTO `member` (`idMember`, `email`, `name`, `coming`, `MainCourse_name`, `Desert_name`, `Starter_name`, `Family_Wedding_idWedding`, `FamilyMemberId`, `password`) VALUES (NULL, '$email', '$name', NULL, NULL, NULL, NULL, '$idWedding', '$familyId', '$pass')";
@@ -574,15 +613,14 @@ class DbOperation{
 	}
 	function returnGuestsForWedding($idWedding)
 	{
-	$la="select name,lastname,numberTable,idTable,id,coming FROM(SELECT name,lastname,Wedding_idWedding as wedid,Tables_has_Wedding_Tables_idTable as idTable,id,member.coming from member INNER JOIN family on member.FamilyMemberId=family.id AND family.Wedding_idWedding=member.Family_Wedding_idWedding where family.Wedding_idWedding=$idWedding) AS x INNER JOIN tables_has_wedding on x.idTable=tables_has_wedding.Tables_idTable and x.wedid=tables_has_wedding.Wedding_idWedding  ";
-	 $res=$this->con->query($la);
-	 if($res){
+	$la="SELECT name,lastname,Wedding_idWedding as wedid,Tables_has_Wedding_Tables_idTable as idTable,id,member.coming from member INNER JOIN family on member.FamilyMemberId=family.id AND family.Wedding_idWedding=member.Family_Wedding_idWedding where family.Wedding_idWedding=$idWedding";
+	$res=$this->con->query($la);
+	if($res){
 	    $tables=array();
 	    $row=$res->fetch_assoc();
 		while($row)
 		{
-			//($name,$lastname,$numberTable,$idTable,$id)
-		$tabl=new Family($row["name"],$row["lastname"],$row["numberTable"],$row["idTable"],$row["id"],$row["coming"]);
+		$tabl=new Family($row["name"],$row["lastname"],0,$row["idTable"],$row["id"],$row["coming"]);
 		$tables[]=$tabl;
 		$row=$res->fetch_assoc();
 		
@@ -658,18 +696,14 @@ class DbOperation{
 		$la="SELECT * from manager";
 		$res=$this->con->query($la);
 		$row=$res->fetch_assoc();
-		if($uniqueId==$row["uniqueId"]&&$id=$row["Restaurant_idRestaurant"])
+		if($uniqueId==$row["Restaurant_idRestaurant"])
 		{
-			$la="SELECT * from manager where `password`='$password'";
-			$res=$this->con->query($la);
-			$row=$res->fetch_assoc();
-			if($row)
-			return "Sifra nije validna";
-    $la="INSERT INTO `manager`(`password`, `Restaurant_idRestaurant`) VALUES ('$password',1111)";
+		
+    $la="INSERT INTO `manager`(`password`, `Restaurant_idRestaurant`,`uniqueId`) VALUES ('$password',1111,'$id')";
 	$res=$this->con->query($la);
 	return "Uspesno ste kreirali svoj profil";
 		}
-        return null;
+        return "Proverite svoje podatke";
 	}
 	
 	function updateMemberStarter($tables)

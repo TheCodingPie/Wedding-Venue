@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View,TextInput,CheckBox,ImageBackground,Dimensions,TouchableOpacity, ScrollView } from 'react-native';
+import { StyleSheet, Text, View,TextInput,CheckBox,ImageBackground,Dimensions,TouchableOpacity, ScrollView,Alert } from 'react-native';
 import {Header,Left,Icon, DatePicker} from 'native-base';
 import {createSwitchNavigator,createAppContainer} from 'react-navigation';
 import styles from '../../styles';
@@ -54,7 +54,33 @@ alert('lala');
 
 }*/
 
+
 createBrideAndGroom=()=>{
+
+
+  if(this.state.lastname=="" || this.state.nameBride==""|| this.state.nameGroom==""|| this.state.email=="" )
+  {
+    Alert.alert("Obaveštenje","Proverite unete podatke.");
+    this.setState({nameGroom:"",
+  nameBride:"",
+  lastname:"",
+  email:"",
+  
+  })
+    return;
+  }
+  if(this.state.email.indexOf("@gmail.com")==-1)
+  {
+    Alert.alert("Obaveštenje","Unesite validan gmail.");
+    this.setState({nameGroom:"",
+    nameBride:"",
+    lastname:"",
+    email:"",
+    
+    })
+    return;
+  }
+  let pom=this.state.email;
   
   const formData=new FormData();
   formData.append("createBrideAndGroom",1);
@@ -71,18 +97,26 @@ createBrideAndGroom=()=>{
   fetch(FetchConstants.url+'/Manager.php',fetchData)
   .then((response)=>response.json())
   .then((response)=>{
-   if(response==null)
-   alert("BrideAndGroomNotAdded");
+   if(response==null){
+   Alert.alert("Obaveštenje","Došlo je do greške prilikom kreiranja.");
+   this.setState({nameGroom:"",
+   nameBride:"",
+   lastname:"",
+   email:"",
+   
+   });
+   }
    else
    {
-    this.setState({id:response});
-    alert(this.state.id);
-    alert("BrideAndGroomAdded");
-    this.props.navigation.navigate('CreateWeddingSecondPage',{id:this.state.id})
+   
+  // alert(this.state.id);
+    Alert.alert("Obaveštenje","Dodali ste mladence");
+    this.props.navigation.navigate('CreateWeddingSecondPage',{id:response,email:pom})
    }
+  
   })
   .catch((error)=>{alert(error);});
-  
+
 }
 
 
@@ -102,30 +136,32 @@ render() {
         <LinearGradient start={{x: 0, y: 0}} end={{x:0 , y: 1}} colors={['white','#F1F1F1']} style={{flex:10,display:'flex',flexDirection:'row',borderRadius:20,borderColor:'white',shadowOffset:{width:2,height:4},shadowOpacity:0.8,shadowRadius:2,elevation:5,shadowColor:'#000'}}>
         <View style={{flex:1}}></View>
         <View style={{flex:5,display:'flex',flexDirection:'column'}}>
-          <View style={{flex:3,alingItems:'center',justifyContent:'center'}}><Text style={{color:'#fbb0a9',fontFamily:'news701i',textShadowColor:'#000000',fontSize:20,alignItems:'center',textShadowOffset:{width:2,height:2},textShadowRadius:4}}>Kreiraj venčanje</Text></View>
+        <View style={{flex:2, display:'flex',alignItems:'center',flexDirection:'column',justifyContent:'center'}}>
+        <Text style={{fontFamily:'news701i',color:'#fbb0a9',textShadowColor:'#000000',fontSize:30,alignItems:'center'}}>Kreiraj vencanje</Text>
+        </View>
           <View style={{flex:1}}></View>
           <View style={{flex:2}}>
-          <TextInput placeholder='Ime mlade' style={{flex:1.5,borderBottomColor:'black',
+          <TextInput value={this.state.nameBride} placeholder='Ime mlade' style={{flex:1.5,borderBottomColor:'black',
                               borderBottomWidth:2,shadowColor:'pink'}} placeholderTextColor='#fbb0a9'
           onChangeText={this.handleTextChangeNameBride}></TextInput></View>
           <View style={{flex:2}}></View>
           <View style={{flex:2}}>
-          <TextInput placeholder='Ime mladozenje' style={{flex:1.5,borderBottomColor:'black',
+          <TextInput value={this.state.nameGroom} placeholder='Ime mladozenje' style={{flex:1.5,borderBottomColor:'black',
                               borderBottomWidth:2,shadowColor:'pink'}} placeholderTextColor='#fbb0a9'
           onChangeText={this.handleTextChangeNameGroom}></TextInput>
           </View>
           <View style={{flex:2}}></View>
-          <View style={{flex:2}}><TextInput placeholder='Prezime' style={{flex:1.5,borderBottomColor:'black', borderBottomWidth:2,shadowColor:'pink'}}
+          <View style={{flex:2}}><TextInput value={this.state.lastname} placeholder='Prezime' style={{flex:1.5,borderBottomColor:'black', borderBottomWidth:2,shadowColor:'pink'}}
            placeholderTextColor='#fbb0a9' onChangeText={this.handleTextChangeLastname}></TextInput></View>
           <View style={{flex:2}}></View>
-          <View style={{flex:2}}><TextInput placeholder='Email' style={{flex:1.5,borderBottomColor:'black',
+          <View style={{flex:2}}><TextInput value={this.state.email} placeholder='Gmail' style={{flex:1.5,borderBottomColor:'black',
                               borderBottomWidth:2,shadowColor:'pink'}} placeholderTextColor='#fbb0a9'
           onChangeText={this.handleTextChangeEmail}></TextInput></View>
           <View style={{flex:2}}></View>
 
           <View style={{flex:2 }}>
        
-            <TouchableOpacity  onPress={this.createBrideAndGroom}style={{flex:1,flexDirection:"column",borderRadius:30, alignItems:'center',justifyContent:'center',backgroundColor:'#fbb0a9'}}  ><Text style={{color:'black'}}>Kreiraj mladence</Text></TouchableOpacity>
+            <TouchableOpacity  onPress={this.createBrideAndGroom}style={{flex:1,flexDirection:"column",borderRadius:30, alignItems:'center',justifyContent:'center',backgroundColor:'#fbb0a9'}}  ><Text style={{color:'white',fontSize:20}}>Kreiraj mladence</Text></TouchableOpacity>
           
           
             </View>

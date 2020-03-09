@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View,TextInput, AsyncStorage ,TouchableOpacity,ImageBackground} from 'react-native';
+import { StyleSheet, Text, View,TextInput, AsyncStorage ,TouchableOpacity,ImageBackground,Alert} from 'react-native';
 import styles from '../../styles';
 import firebase from 'react-native-firebase';
 import{ StackActions,NavigationActions} from 'react-navigation';
@@ -115,6 +115,7 @@ this.setState({x:"red"});
     firebase.database().ref("Notification").child(idWaiter).push({     
       text:'Poziv sa stola:'+idTable,
     });
+    Alert.alert("Obaveštenje","Pozvali ste konobara.");
        
   }
  
@@ -135,7 +136,7 @@ this.setState({x:"red"});
         fetch( FetchConstants.url+"/Member.php",fetchData)
         .then((response)=>response.json())
         .then((response)=>{
-       //  alert(response);
+         //alert(response);
          
       
         })
@@ -195,7 +196,7 @@ this.setState({x:"red"});
       .utcOffset('+05:30')
       .format('YYYY-MM-DD hh:mm:ss');
     //Getting the current date-time with required formate and UTC  
-    var expirydate = ''+this.state.member.date+' '+'04:00:45';// OVDE TREBA DA SE STAVI VREME SVADBE NA OSNOVU this.props.navigation.state.params.wedid
+    var expirydate = ''+this.state.member.date+' '+'14:00:00';// OVDE TREBA DA SE STAVI VREME SVADBE NA OSNOVU this.props.navigation.state.params.wedid
     //Let suppose we have to show the countdown for above date-time 
     var diffr = moment.duration(moment(expirydate).diff(moment(date)));
     //difference of the expiry date-time given and current date-time
@@ -210,7 +211,7 @@ this.setState({x:"red"});
     render() {
       return(
 
-     <View style={{flex:1,flexDirection:'column'}}>
+     <View style={{flex:1,flexDirection:'column',backgroundColor:'#F1F1F1'}}>
       
  <Header style={{flexDirection:'column',backgroundColor:'#fbb0a9'}} >
      
@@ -220,16 +221,17 @@ this.setState({x:"red"});
     
      </Header>
      
-              <View style={{flex:0.7,alignItems:'center',justifyContent:'center'}}>
+              <View style={{flex:0.7,alignItems:'center',justifyContent:'center',}}>
 
                <CountDown
                   until={this.state.totalDuration}
                   digitTxtStyle={{color:'white'}}
                    timetoShow={('H', 'M', 'S')}
-                   timeLabelStyle={{color:'#49beb7'}}
+                   timeLabelStyle={{color:'#49beb7',fontFamily:'news701i'}}
                    onPress={() => alert('Jos ovoliko do vencanja')}
-                   digitStyle={{backgroundColor:'#fbb0a9'}}
+                   digitStyle={{backgroundColor:'#fbb0a9',borderColor:'white',shadowOffset:{width:2,height:4},shadowOpacity:0.8,shadowRadius:2,elevation:5,shadowColor:'#000'}}
                     timeLabels={{d:'Dana',h:'Sati',m: 'Minuta', s: 'Sekunde'}}
+                    
       
                      size={35}
                      />
@@ -243,7 +245,7 @@ this.setState({x:"red"});
                                            <View style={{flex:1,flexDirection:'column'}}>
                                            
 
-                                           <View style={{flex:1,backgroundColor:'#fbb0a9',borderRadius:25,justifyContent:'center',alignItems:'center' }} >
+                                           <View style={{flex:1,backgroundColor:'#fbb0a9',borderRadius:25,justifyContent:'center',alignItems:'center',borderColor:'white',shadowOffset:{width:2,height:4},shadowOpacity:0.8,shadowRadius:2,elevation:5,shadowColor:'#000' }} >
                                           
                                            <Icon name="silverware-fork-knife" type='MaterialCommunityIcons'   style={{fontSize:80 ,color:"white"}} onPress={() => this.props.navigation.navigate('menuPage',{member:this.state.member})} />
                                            <Text style={{fontFamily:'news701i',fontSize:18,color:'#49beb7'}}>Jelovnik</Text>
@@ -261,7 +263,7 @@ this.setState({x:"red"});
                                            <View style={{flex:1,flexDirection:'column'}}>
                                           
                                            
-                                           <View style={{flex:1,backgroundColor:'#fbb0a9',borderRadius:25,alignItems:'center',justifyContent:'center'}}>
+                                           <View style={{flex:1,backgroundColor:'#fbb0a9',borderRadius:25,alignItems:'center',justifyContent:'center',borderColor:'white',shadowOffset:{width:2,height:4},shadowOpacity:0.8,shadowRadius:2,elevation:5,shadowColor:'#000'}}>
                                            <View style={{flex:1,flexDirection:'row',alignItems:'center',justifyContent:'center'}}>
 
                                              <TouchableOpacity style={{flex:1,alignItems:'center',justifyContent:'center',alignContent:'center' }} /*onPress={this.showDialog}*/onPress={this.showDialog}>
@@ -297,7 +299,7 @@ this.setState({x:"red"});
                           <View style={{flex:0.2}}></View>
                                 <View style={{flex:1,flexDirection:'row'}}>
                                       <View style={{flex:0.05}}></View>
-                                      <View style={{flex:1,backgroundColor:'#fbb0a9',borderRadius:25,alignItems:'center',justifyContent:'center'}}>
+                                      <View style={{flex:1,backgroundColor:'#fbb0a9',borderRadius:25,alignItems:'center',justifyContent:'center',borderColor:'white',shadowOffset:{width:2,height:4},shadowOpacity:0.8,shadowRadius:2,elevation:5,shadowColor:'#000'}}>
                                       
                                       <TouchableOpacity style={{flex:1,alignItems:'center',justifyContent:'center',alignContent:'center'}} onPress={()=>this.sendMessage(this.state.member.idTable,this.state.member.waiterId)}>
                                       <View style={{flex:1,alignItems:'center',justifyContent:'center',alignContent:'center'}}>

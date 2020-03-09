@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View,TextInput,CheckBox,ScrollView,TouchableOpacity,Dimensions} from 'react-native';
+import { StyleSheet, Text, View,TextInput,CheckBox,ScrollView,TouchableOpacity,Dimensions,Alert} from 'react-native';
 import styles from '../../styles'
 import FetchConstants from '../../Classes/fetchConstants';
 import DatePicker from 'react-native-date-picker';
@@ -10,7 +10,7 @@ export default class ManagerBrisiVencanje extends React.Component {
   constructor(){
     super();
     this.state={
-      date:new Date().toISOString().split('T')[0],
+      date:new Date(),
       dialogVisible: false,
     }
   }
@@ -22,7 +22,7 @@ export default class ManagerBrisiVencanje extends React.Component {
     this.deleteWedding();
   }
   deleteWedding=()=>{
-    
+    //alert(this.state.date.toISOString().split('T')[0]);
     const formData=new FormData();
     formData.append("deleteWedding",1);
         formData.append("date",this.state.date.toISOString().split('T')[0]);
@@ -34,7 +34,10 @@ export default class ManagerBrisiVencanje extends React.Component {
         fetch( FetchConstants.url+"/Manager.php",fetchData)
         .then((response)=>response.json())
         .then((response)=>{
-         alert(response);
+          if(response==true)
+          Alert.alert("Obaveštenje","Obrisali ste venčanje.");
+          else
+          Alert.alert("Obaveštenje","Niste obrisali venčanje,proverite datum.");
       
         })
         .catch((error)=>{alert(error);});
@@ -70,7 +73,7 @@ render() {
        <DatePicker mode='date'   
             placeholder="select date"
             format="YYYY-MM-DD"
-          
+            timeZoneOffsetInMinutes={(new Date()).getTimezoneOffset()*+1}
              date={this.state.date} textColor='#fbb0a9' locale='ba' style={{flex:1,flexDirection:'column'}} onDateChange={this.handleDateChange}></DatePicker>
              <View style={{flex:0.2}}></View>
        </View>
@@ -80,7 +83,7 @@ render() {
         <View style={{flex:1}}></View>
         <View style={{display:'flex',flex:5,flexDirection:'column'}}>
             <View style={{display:'flex',flex:1,flexDirection:'row'}}>
-        <TouchableOpacity style={{flex:5,flexDirection:"column",borderRadius:30, alignItems:'center',justifyContent:'center',backgroundColor:'#fbb0a9'}} onPress={this.findWeddingId}><Text style={{color:'white'}}>Obrisi</Text></TouchableOpacity>
+        <TouchableOpacity style={{flex:5,flexDirection:"column",borderRadius:30, alignItems:'center',justifyContent:'center',backgroundColor:'#fbb0a9'}} onPress={this.deleteWedding}><Text style={{color:'white',fontSize:20}}>Obrisi</Text></TouchableOpacity>
         </View>
         </View>
         <View style={{flex:1}}></View>

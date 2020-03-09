@@ -106,7 +106,7 @@ render() {
           <View style={{flex:2.5}}></View>
           <View style={{display:"flex",flexDirection:"row", flex:2,alignItems:'center',justifyContent:'center'}}>
           <View style={{flex:1}}></View>
-          <TextInput placeholder="Vasa sifra" secureTextEntry={true }style={{flex:4,backgroundColor:'white',borderBottomColor:'black',borderBottomWidth:1}}  onChangeText={this.handleChangeTextPassword} placeholderTextColor='#fbb0a9'></TextInput>
+          <TextInput placeholder="Vaša šifra" secureTextEntry={true }style={{flex:4,backgroundColor:'white',borderBottomColor:'black',borderBottomWidth:1}}  onChangeText={this.handleChangeTextPassword} placeholderTextColor='#fbb0a9'></TextInput>
           <View style={{flex:1}}></View>
           </View>
           <View style={{flex:2.5}}></View>

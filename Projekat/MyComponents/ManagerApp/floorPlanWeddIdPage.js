@@ -1,6 +1,7 @@
 import React from 'react';
-import { StyleSheet, Text, View,TextInput,Button,TouchableOpacity ,ScrollView,Dimensions} from 'react-native';
+import { StyleSheet, Text, View,TextInput,Button,TouchableOpacity ,ScrollView,Dimensions,Alert} from 'react-native';
 import styles from '../../styles';
+import FetchConstants from '../../Classes/fetchConstants';
 import DatePicker from 'react-native-date-picker';
 export default class floorPlanWeddIdPageScreen extends React.Component{
 
@@ -8,6 +9,7 @@ export default class floorPlanWeddIdPageScreen extends React.Component{
         super();
         this.state={
             weddingId:-1,
+            date:new Date(),
            
             
         }
@@ -18,7 +20,28 @@ export default class floorPlanWeddIdPageScreen extends React.Component{
         header:null
       }
       handleChangeTextCode=(newText)=>this.setState({weddingId:newText});
-
+      handleDateChange=(newText)=>this.setState({date:newText});
+      returnWeddingId=()=>{
+      
+        const formData=new FormData();
+        formData.append("findWeddingToAddWaiters",1);
+        formData.append("date",this.state.date.toISOString().split('T')[0]);
+       
+        const fetchData={
+          method:"post",
+          body:formData
+        };
+       
+        fetch( FetchConstants.url+"/Manager.php",fetchData)
+        .then((response)=>response.json())
+        .then((response)=>{
+          if(response!=null)
+          this.props.navigation.navigate('floorPlanSeePlan',{wedid:response});
+          else
+          Alert.alert("Obaveštenje","Venčanje za izabrani datum ne postoji.");
+        })
+        .catch((error)=>{alert(error);});
+      }  
 render()
 {
      return(
@@ -50,15 +73,17 @@ render()
       <View style={{flex:5,flexDirection:'column',borderRadius:30,backgroundColor:'white'}}>
     
       <View style={{flex:1,flexDirection:'row'}}></View>
+      <View style={{flex:1,flexDirection:'row'}}><Text style={{color:'#fbb0a9',fontSize:20}}>Datum vencanja</Text></View>
       <View style={{flex:2,flexDirection:'row'}}>
-      <DatePicker mode='date'   mode="date"
+      <DatePicker mode='date'
       placeholder="select date"
       format="YYYY-MM-DD"
       minDate={this.state.minDate}
-       date={this.state.date} textColor='#fbb0a9' locale='ba' style={{flex:1,flexDirection:'column'}} onDateChange={this.handleDateChange}></DatePicker>
+       date={this.state.date} textColor='#fbb0a9' locale='ba' style={{flex:1,flexDirection:'column'}} onDateChange={this.handleDateChange}
+       timeZoneOffsetInMinutes={(new Date()).getTimezoneOffset()*+1}></DatePicker>
       </View>
       <View style={{flex:2}}></View>
-      <View style={{flex:0.75}}><TouchableOpacity style={{flex:1,flexDirection:"column",borderRadius:30, alignItems:'center',justifyContent:'center',backgroundColor:'#fbb0a9'}} onPress={()=>this.props.navigation.navigate('floorPlanSeePlan',{wedid:this.state.weddingId})}><Text style={{color:'white'}}>Kreiraj raspored</Text></TouchableOpacity></View>
+      <View style={{flex:0.75}}><TouchableOpacity style={{flex:1,flexDirection:"column",borderRadius:30, alignItems:'center',justifyContent:'center',backgroundColor:'#fbb0a9'}} onPress={this.returnWeddingId}><Text style={{color:'black',fontSize:20}}>Prikazi raspored</Text></TouchableOpacity></View>
       <View style={{flex:1}}></View>
       </View>
       <View style={{flex:1}}></View>

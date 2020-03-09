@@ -65,7 +65,7 @@ tablespom
   returnTables(){
     const formData=new FormData();
     formData.append("TableWed",1);
-    formData.append("wedId",1);
+    formData.append("wedId",this.state.wedid);
     const fetchData={
       method:"post",
       body:formData
@@ -76,7 +76,11 @@ tablespom
       var tablestorender=[];
       var arr=[];
       var tablespom=[];
-    response.forEach((x,i)=>tablespom.push(new Table(x.shape,x.capacity,this.state.wedid,x.idTable,parseInt(x.x),parseInt(x.y),0)));
+    response.forEach((x,i)=>{
+      let posX=parseInt(parseInt(Dimensions.get('window').width)*parseInt(x.x)/411);
+      let posY=parseInt(parseInt(Dimensions.get('window').height)*parseInt(x.y)/683);
+      tablespom.push(new Table(x.shape,x.capacity,this.state.wedid,x.idTable,posX,posY,0))});
+      //tablespom.push(new Table(x.shape,x.capacity,this.state.wedid,x.idTable,parseInt(x.x),parseInt(x.y),0))});
     tablespom
   .forEach((table,index)=>//nije optimizovana al nece radi drugacije
   {
@@ -93,8 +97,8 @@ tablespom
   returnTableNum(){
     const formData=new FormData();
       formData.append("findTableNum",1);
-      formData.append("id",1);
-      formData.append("weddingId",1);
+      formData.append("id",this.state.famid);
+      formData.append("weddingId",this.state.wedid);
     
       const fetchData={
         method:"post",
@@ -110,10 +114,9 @@ tablespom
   }
 
 
-
   _moveBall = () => {
     Animated.spring(this.state.animacija, {
-      toValue: {x:parseInt(this.state.person.x), y:parseInt( this.state.person.y)},
+      toValue: {x:  parseInt(parseInt(Dimensions.get('window').width)*parseInt(this.state.person.x)/411), y: parseInt(parseInt(Dimensions.get('window').height)*parseInt(this.state.person.y)/683)},
     }).start()
   }
     

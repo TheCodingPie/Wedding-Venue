@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View,TextInput,Button,Dimensions ,TouchableOpacity,ScrollView} from 'react-native';
+import { StyleSheet, Text, View,TextInput,Button,Dimensions ,TouchableOpacity,ScrollView,Alert} from 'react-native';
 import styles from '../../styles';
 import Table from '../../Classes/classTable';
 import FetchConstants from '../../Classes/fetchConstants';
@@ -15,22 +15,46 @@ export default class floorPlanFirstPageNewWeddScreen extends React.Component{
     this.state={
         peoplenum:0,
         weddingId:-1,
-        date:new Date().toISOString().split('T')[0],
+        date:new Date(),
     }
    }
+
+
 
    handleChangeTextCode=(newText)=>this.setState({peoplenum:newText});
    handleChangeTextCodeWedId=(newText)=>this.setState({weddingId:newText});
    handleDateChange=(newText)=>this.setState({date:newText});
+
+
     static navigationOptions={
 
         header:null
       }
-      
+    returnWeddingId=()=>{
+     
+      const formData=new FormData();
+      formData.append("findWeddingToAddWaiters",1);
+      formData.append("date",this.state.date.toISOString().split('T')[0]);
+     
+      const fetchData={
+        method:"post",
+        body:formData
+      };
+     
+      fetch( FetchConstants.url+"/Manager.php",fetchData)
+      .then((response)=>response.json())
+      .then((response)=>{
+        if(response!=null)
+        this.props.navigation.navigate('floorPlanSeeFPPage',{wedid:response,peoplenum:this.state.peoplenum})
+        else
+        Alert.alert("Obaveštenje","Venčanje za izabrani datum ne postoji.");
+      })
+      .catch((error)=>{alert(error);}); 
+    }  
      
 render()
 {
-
+ 
     return(
       <ScrollView contentContainerStyle={{ height: Dimensions.get('window').height}}>
         <View style={{flex:1,flexDirection:'column',backgroundColor:'#F1F1F1'}}>
@@ -63,15 +87,17 @@ render()
         <TextInput style={{borderBottomColor:'black',borderBottomWidth:2}} placeholderTextColor='#fbb0a9' placeholder='Broj zvanica' onChangeText={this.handleChangeTextCode} placeholder='brojLjudi'/> 
         </View>
         <View style={{flex:1,flexDirection:'row'}}></View>
+        <View style={{flex:1,flexDirection:'row'}}><Text style={{color:'#fbb0a9',fontSize:20}}>Datum vencanja</Text></View>
         <View style={{flex:2,flexDirection:'row'}}>
-        <DatePicker mode='date'   mode="date"
+        <DatePicker mode='date' 
         placeholder="select date"
         format="YYYY-MM-DD"
         minDate={this.state.minDate}
-         date={this.state.date} textColor='#fbb0a9' locale='ba' style={{flex:1,flexDirection:'column'}} onDateChange={this.handleDateChange}></DatePicker>
+         date={this.state.date} textColor='#fbb0a9' locale='ba' style={{flex:1,flexDirection:'column'}} onDateChange={this.handleDateChange}
+         timeZoneOffsetInMinutes={(new Date()).getTimezoneOffset()*+1}></DatePicker>
         </View>
         <View style={{flex:2}}></View>
-        <View style={{flex:1}}><TouchableOpacity style={{flex:1,flexDirection:"column",borderRadius:30, alignItems:'center',justifyContent:'center',backgroundColor:'#fbb0a9'}} onPress={()=>this.props.navigation.navigate('floorPlanSeeFPPage',{wedid:this.state.weddingId,peoplenum:this.state.peoplenum})}><Text style={{color:'white'}}>Pregledaj raspored</Text></TouchableOpacity></View>
+        <View style={{flex:1}}><TouchableOpacity style={{flex:1,flexDirection:"column",borderRadius:30, alignItems:'center',justifyContent:'center',backgroundColor:'#fbb0a9'}} onPress={this.returnWeddingId}><Text style={{color:'black',fontSize:20}}>Kreiraj raspored</Text></TouchableOpacity></View>
         <View style={{flex:1}}></View>
         </View>
         <View style={{flex:1}}></View>

@@ -105,7 +105,7 @@ export default class floorPlanSeePlanScreen extends React.Component {//ZA PREGLE
   .forEach((table,index)=>//nije optimizovana al nece radi drugacije
   {
     tablestorender
-    .push( <Draggable key={index}  renderSize={radius} ref={(draggable) => {arr[index] = draggable;}} longPressDrag={()=>updateXanY(arr[index].state._value.x,arr[index].state._value.y,table,index)}  pressDrag={()=>prikaziGoste(table.id)} reverse={false} renderColor='black' renderShape={table.shape} x={table.x} y={table.y} renderText={table.capacity+"\n"+table.id} />);
+    .push( <Draggable key={index}  renderSize={radius} ref={(draggable) => {arr[index] = draggable;}} longPressDrag={()=>updateXanY(arr[index].state._value.x,arr[index].state._value.y,table,index)} reverse={true} renderColor='black' renderShape={table.shape} x={table.x} y={table.y} renderText={table.capacity+"\n"+table.id} />);
   });
     this.setState({tr:tablestorender});
     }) 
