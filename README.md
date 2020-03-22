@@ -1,7 +1,7 @@
 # Wedding-Venue
-Mobilna aplikacija namenjena restoranima i hotelima za planiranje i realizaciju svadbe.<br />
+Mobilna aplikacija namenjena restoranima i hotelima za planiranje i realizaciju svadbi.<br />
 Deo interfejsa prikazan je u nastavku.
-Kompletan opis projekta nalazi se [ovde](https://github.com/TheCodingPie/Wedding-Venue/tree/master/Dokumentacija)
+Kompletan opis projekta nalazi se [ovde.](https://github.com/TheCodingPie/Wedding-Venue/tree/master/Dokumentacija)
 
 ![alt text](https://github.com/TheCodingPie/Wedding-Venue/blob/master/Slike/Capture.png)
 ![alt text](https://github.com/TheCodingPie/Wedding-Venue/blob/master/Slike/Capture2.PNG)
