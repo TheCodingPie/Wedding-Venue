@@ -22,4 +22,4 @@ Kompletan opis projekta nalazi se [ovde.](https://github.com/TheCodingPie/Weddin
 ![alt text](https://github.com/TheCodingPie/Wedding-Venue/blob/master/Slike/16.PNG)
 -------------------------------------------------------------------------------------------
 ![alt text](https://github.com/TheCodingPie/Wedding-Venue/blob/master/Slike/17.PNG)
-![alt text](https://github.com/TheCodingPie/Wedding-Venue/blob/master/Slike/20.PNG)
+![alt text](https://github.com/TheCodingPie/Wedding-Venue/blob/master/Slike/20.PNG)    
